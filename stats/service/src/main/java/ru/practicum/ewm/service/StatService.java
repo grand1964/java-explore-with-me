@@ -6,6 +6,6 @@ import ru.practicum.ewm.StatOutDto;
 import java.util.List;
 
 public interface StatService {
-    List<StatOutDto> getEvents(String start, String end, String[] uris, boolean unique);
-    void putEvent(StatInDto stat);
+    List<StatOutDto> getStat(String start, String end, String[] uris, boolean unique);
+    void putHit(StatInDto stat);
 }

@@ -14,10 +14,11 @@ import java.util.List;
 @Slf4j
 @Service
 @AllArgsConstructor(onConstructor_ = @Autowired)
-public class StatServiceImpl implements StatService{
+public class StatServiceImpl implements StatService {
     private final StatRepository statRepository;
+
     @Override
-    public List<StatOutDto> getEvents(String start, String end, String[] uris, boolean unique) {
+    public List<StatOutDto> getStat(String start, String end, String[] uris, boolean unique) {
         if (uris.length == 0) { //целевые эндпойнты не заданы
             if (unique) { //требуются данные без повторов
                 return statRepository.getAllUniqueHits(start, end); //выдаем сжатую статистику
@@ -34,7 +35,7 @@ public class StatServiceImpl implements StatService{
     }
 
     @Override
-    public void putEvent(StatInDto stat) {
+    public void putHit(StatInDto stat) {
         statRepository.save(StatDtoMapper.toHit(stat));
     }
 }

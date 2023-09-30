@@ -25,20 +25,20 @@ public class StatController {
     @GetMapping(value = "/stats")
     public ResponseEntity<List<StatOutDto>> getStat(@NotBlank @RequestParam String start,
                                                     @NotBlank @RequestParam String end,
-                                                    @RequestParam(defaultValue = "") String[] uris,
+                                                    @RequestParam String[] uris,
                                                     @RequestParam(defaultValue = "false") Boolean unique
-                                   ) {
+    ) {
         log.info("Запрошена статистика с {} по {} ", start, end);
-        return ResponseEntity.ok(service.getEvents(start, end, uris, unique));
+        return ResponseEntity.ok(service.getStat(start, end, uris, unique));
     }
 
-    //////////////////////////////// Добавление /////////////////////////////
+    ///////////////////////////// Добавление данных /////////////////////////
 
     //создание нового запроса
     @PostMapping(value = "/hit")
     public ResponseEntity<Void> putStat(@RequestBody StatInDto statInDto) {
         log.info("Информация сохранена ");
-        service.putEvent(statInDto);
+        service.putHit(statInDto);
         return new ResponseEntity<>(HttpStatus.valueOf(201));
     }
 }

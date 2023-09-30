@@ -4,17 +4,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.client.RestTemplate;
 import ru.practicum.ewm.controller.StatController;
 import ru.practicum.ewm.service.StatService;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -30,8 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class StatControllerTests {
     private static StatInDto statInDto;
     private static StatOutDto statOutDto;
-    @Autowired
-    RestTemplate rest;
 
     @Autowired
     ObjectMapper mapper;
@@ -56,7 +53,7 @@ public class StatControllerTests {
     @Test
     void normalGetStatTest() throws Exception {
         HttpHeaders headers = new HttpHeaders();
-        when(service.getEvents(anyString(), anyString(), any(String[].class), anyBoolean()))
+        when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
                 .thenReturn(List.of(statOutDto));
 
         String[] uris={"xxx", "yyy"};
@@ -73,9 +70,65 @@ public class StatControllerTests {
     }
 
     @Test
+    void normalGetStatWithUrisAnalysisTest() throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
+                .thenAnswer(invocationOnMock -> {
+                    String[] uris = invocationOnMock.getArgument(2, String[].class);
+                    List<StatOutDto> dtos = new ArrayList<>();
+                    for (String uri : uris) {
+                        dtos.add(new StatOutDto("ewm-main-service", uri, 17L));
+                    }
+                    return dtos;}
+        );
+
+        String[] uris={"xxx", "yyy", "zzz"};
+        mvc.perform(get("/stats?start={start}&end={end}&uris={uris}&unique={unique}",
+                        "aaa", "bbb", uris, "false")
+                        .headers(headers)
+                        .characterEncoding(StandardCharsets.UTF_8)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[0].uri", is(uris[0])))
+                .andExpect(jsonPath("$[1].uri", is(uris[1])))
+                .andExpect(jsonPath("$[2].uri", is(uris[2])));
+    }
+
+    @Test
+    void normalGetStatWithVoidUrisTest() throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
+                .thenAnswer(invocationOnMock -> {
+                    String[] uris = invocationOnMock.getArgument(2, String[].class);
+                    List<StatOutDto> dtos = new ArrayList<>();
+                    for (String uri : uris) {
+                        dtos.add(new StatOutDto("ewm-main-service", uri, 17L));
+                    }
+                    return dtos;}
+                );
+
+        String[] uris={};
+        mvc.perform(get("/stats?start={start}&end={end}&uris={uris}&unique={unique}",
+                        "aaa", "bbb", uris, "false")
+                        .headers(headers)
+                        .characterEncoding(StandardCharsets.UTF_8)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(0)));
+        mvc.perform(get("/stats?start={start}&end={end}&uris=&unique={unique}",
+                        "aaa", "bbb", "false")
+                        .headers(headers)
+                        .characterEncoding(StandardCharsets.UTF_8)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(0)));
+    }
+
+    @Test
     void getStatWithoutUniqueTest() throws Exception {
         HttpHeaders headers = new HttpHeaders();
-        when(service.getEvents(anyString(), anyString(), any(String[].class), anyBoolean()))
+        when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
                 .thenReturn(List.of(statOutDto));
 
         String[] uris={"xxx", "yyy"};
@@ -94,24 +147,20 @@ public class StatControllerTests {
     @Test
     void getStatWithoutUrisTest() throws Exception {
         HttpHeaders headers = new HttpHeaders();
-        when(service.getEvents(anyString(), anyString(), any(String[].class), anyBoolean()))
+        when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
                 .thenReturn(List.of(statOutDto));
 
         mvc.perform(get("/stats?start={start}&end={end}","aaa", "bbb")
                         .headers(headers)
                         .characterEncoding(StandardCharsets.UTF_8)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].app", is(statInDto.getApp()), String.class))
-                .andExpect(jsonPath("$[0].uri", is(statInDto.getUri())))
-                .andExpect(jsonPath("$[0].hits", is(statOutDto.getHits().intValue())));
+                .andExpect(status().is(400));
     }
 
     @Test
     void getStatWithoutStartTest() throws Exception {
         HttpHeaders headers = new HttpHeaders();
-        when(service.getEvents(anyString(), anyString(), any(String[].class), anyBoolean()))
+        when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
                 .thenReturn(List.of(statOutDto));
 
         mvc.perform(get("/stats?end={end}","bbb")
@@ -124,7 +173,7 @@ public class StatControllerTests {
     @Test
     void getStatWithoutEndTest() throws Exception {
         HttpHeaders headers = new HttpHeaders();
-        when(service.getEvents(anyString(), anyString(), any(String[].class), anyBoolean()))
+        when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
                 .thenReturn(List.of(statOutDto));
 
         mvc.perform(get("/stats?start={start}","aaa")
