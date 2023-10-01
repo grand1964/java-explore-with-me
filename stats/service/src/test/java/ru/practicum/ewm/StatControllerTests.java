@@ -56,7 +56,7 @@ public class StatControllerTests {
         when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
                 .thenReturn(List.of(statOutDto));
 
-        String[] uris={"xxx", "yyy"};
+        String[] uris = {"xxx", "yyy"};
         mvc.perform(get("/stats?start={start}&end={end}&uris={uris}&unique={unique}",
                         "aaa", "bbb", uris, "false")
                         .headers(headers)
@@ -74,15 +74,16 @@ public class StatControllerTests {
         HttpHeaders headers = new HttpHeaders();
         when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
                 .thenAnswer(invocationOnMock -> {
-                    String[] uris = invocationOnMock.getArgument(2, String[].class);
-                    List<StatOutDto> dtos = new ArrayList<>();
-                    for (String uri : uris) {
-                        dtos.add(new StatOutDto("ewm-main-service", uri, 17L));
-                    }
-                    return dtos;}
-        );
+                            String[] uris = invocationOnMock.getArgument(2, String[].class);
+                            List<StatOutDto> dtos = new ArrayList<>();
+                            for (String uri : uris) {
+                                dtos.add(new StatOutDto("ewm-main-service", uri, 17L));
+                            }
+                            return dtos;
+                        }
+                );
 
-        String[] uris={"xxx", "yyy", "zzz"};
+        String[] uris = {"xxx", "yyy", "zzz"};
         mvc.perform(get("/stats?start={start}&end={end}&uris={uris}&unique={unique}",
                         "aaa", "bbb", uris, "false")
                         .headers(headers)
@@ -100,15 +101,16 @@ public class StatControllerTests {
         HttpHeaders headers = new HttpHeaders();
         when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
                 .thenAnswer(invocationOnMock -> {
-                    String[] uris = invocationOnMock.getArgument(2, String[].class);
-                    List<StatOutDto> dtos = new ArrayList<>();
-                    for (String uri : uris) {
-                        dtos.add(new StatOutDto("ewm-main-service", uri, 17L));
-                    }
-                    return dtos;}
+                            String[] uris = invocationOnMock.getArgument(2, String[].class);
+                            List<StatOutDto> dtos = new ArrayList<>();
+                            for (String uri : uris) {
+                                dtos.add(new StatOutDto("ewm-main-service", uri, 17L));
+                            }
+                            return dtos;
+                        }
                 );
 
-        String[] uris={};
+        String[] uris = {};
         mvc.perform(get("/stats?start={start}&end={end}&uris={uris}&unique={unique}",
                         "aaa", "bbb", uris, "false")
                         .headers(headers)
@@ -131,7 +133,7 @@ public class StatControllerTests {
         when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
                 .thenReturn(List.of(statOutDto));
 
-        String[] uris={"xxx", "yyy"};
+        String[] uris = {"xxx", "yyy"};
         mvc.perform(get("/stats?start={start}&end={end}&uris={uris}",
                         "aaa", "bbb", uris)
                         .headers(headers)
@@ -150,7 +152,7 @@ public class StatControllerTests {
         when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
                 .thenReturn(List.of(statOutDto));
 
-        mvc.perform(get("/stats?start={start}&end={end}","aaa", "bbb")
+        mvc.perform(get("/stats?start={start}&end={end}", "aaa", "bbb")
                         .headers(headers)
                         .characterEncoding(StandardCharsets.UTF_8)
                         .accept(MediaType.APPLICATION_JSON))
@@ -163,7 +165,7 @@ public class StatControllerTests {
         when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
                 .thenReturn(List.of(statOutDto));
 
-        mvc.perform(get("/stats?end={end}","bbb")
+        mvc.perform(get("/stats?end={end}", "bbb")
                         .headers(headers)
                         .characterEncoding(StandardCharsets.UTF_8)
                         .accept(MediaType.APPLICATION_JSON))
@@ -176,7 +178,7 @@ public class StatControllerTests {
         when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
                 .thenReturn(List.of(statOutDto));
 
-        mvc.perform(get("/stats?start={start}","aaa")
+        mvc.perform(get("/stats?start={start}", "aaa")
                         .headers(headers)
                         .characterEncoding(StandardCharsets.UTF_8)
                         .accept(MediaType.APPLICATION_JSON))
