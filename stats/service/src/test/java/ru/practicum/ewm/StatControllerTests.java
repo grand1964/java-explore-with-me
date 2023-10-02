@@ -149,14 +149,19 @@ public class StatControllerTests {
     @Test
     void getStatWithoutUrisTest() throws Exception {
         HttpHeaders headers = new HttpHeaders();
-        when(service.getStat(anyString(), anyString(), any(String[].class), anyBoolean()))
+        when(service.getStat(anyString(), anyString(), eq(null), anyBoolean()))
                 .thenReturn(List.of(statOutDto));
 
-        mvc.perform(get("/stats?start={start}&end={end}", "aaa", "bbb")
+        mvc.perform(get("/stats?start={start}&end={end}&unique={unique}",
+                        "aaa", "bbb", "false")
                         .headers(headers)
                         .characterEncoding(StandardCharsets.UTF_8)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().is(400));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].app", is(statInDto.getApp()), String.class))
+                .andExpect(jsonPath("$[0].uri", is(statInDto.getUri())))
+                .andExpect(jsonPath("$[0].hits", is(statOutDto.getHits().intValue())));
     }
 
     @Test

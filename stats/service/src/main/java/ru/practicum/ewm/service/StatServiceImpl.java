@@ -19,7 +19,7 @@ public class StatServiceImpl implements StatService {
 
     @Override
     public List<StatOutDto> getStat(String start, String end, String[] uris, boolean unique) {
-        if (uris.length == 0) { //целевые эндпойнты не заданы
+        if ((uris == null) || (uris.length == 0)) { //целевые эндпойнты не заданы
             if (unique) { //требуются данные без повторов
                 return statRepository.getAllUniqueHits(start, end); //выдаем сжатую статистику
             } else { //повторы разрешены

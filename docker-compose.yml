@@ -31,10 +31,11 @@ services:
 
   ewm-service:
     build: main
-    image: maim_image
+    image: main_image
     container_name: ewm-main-server
     ports:
       - "8080:8080"
+      - "8081:8081"
 
   ewm-db:
     image: postgres:14-alpine

@@ -25,7 +25,7 @@ public class StatController {
     @GetMapping(value = "/stats")
     public ResponseEntity<List<StatOutDto>> getStat(@NotBlank @RequestParam String start,
                                                     @NotBlank @RequestParam String end,
-                                                    @RequestParam String[] uris,
+                                                    @RequestParam(required = false) String[] uris,
                                                     @RequestParam(defaultValue = "false") Boolean unique
     ) {
         log.info("Запрошена статистика с {} по {} ", start, end);
