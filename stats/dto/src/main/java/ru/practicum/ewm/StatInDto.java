@@ -6,8 +6,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StatInDto {
-    String app;
-    String uri;
-    String ip;
-    String timestamp;
+    private String app;
+    private String uri;
+    private String ip;
+    private String timestamp;
 }
