@@ -20,7 +20,10 @@ public class StatClient {
     private final RestTemplate rest;
 
     @Autowired
-    public StatClient(@Value("${stats-server.url}") String serverUrl, RestTemplateBuilder builder) {
+    //public StatClient(@Value("http://192.168.50.4:8080") String serverUrl, RestTemplateBuilder builder) {
+    public StatClient(@Value("http://localhost:9090") String serverUrl, RestTemplateBuilder builder) {
+    //TODO Исправить !!!!
+    //public StatClient(@Value("${stats-server.url}") String serverUrl, RestTemplateBuilder builder) {
         rest = builder
                 .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
                 .requestFactory(HttpComponentsClientHttpRequestFactory::new)
