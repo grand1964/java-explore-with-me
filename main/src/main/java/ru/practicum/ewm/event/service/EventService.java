@@ -31,5 +31,5 @@ public interface EventService {
     EventFullDto updateEventByUser(long userId, long eventId, UpdateEventUserRequest eventDto);
 
     EventRequestStatusUpdateResult updateRequestsForEvent(long userId, long eventId,
-                                                         EventRequestStatusUpdateRequest requestDto);
+                                                          EventRequestStatusUpdateRequest requestDto);
 }

@@ -7,7 +7,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.ewm.common.exception.BadRequestException;
 import ru.practicum.ewm.event.dto.EventFullDto;
 import ru.practicum.ewm.event.dto.EventShortDto;
 import ru.practicum.ewm.event.dto.NewEventDto;
@@ -16,12 +15,10 @@ import ru.practicum.ewm.event.service.EventService;
 import ru.practicum.ewm.request.dto.EventRequestStatusUpdateRequest;
 import ru.practicum.ewm.request.dto.EventRequestStatusUpdateResult;
 import ru.practicum.ewm.request.dto.ParticipationRequestDto;
-import ru.practicum.ewm.request.model.RequestStatus;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -37,8 +34,8 @@ public class PrivateEventController {
     //запрос своих событий пользователем
     @GetMapping
     public List<EventShortDto> getEventsByUser(@PathVariable long userId,
-                                         @RequestParam(defaultValue = "0") @PositiveOrZero int from,
-                                         @RequestParam(defaultValue = "10") @Positive int size) {
+                                               @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                               @RequestParam(defaultValue = "10") @Positive int size) {
         log.debug("Запрошено получение списка своих событий инициатором");
         PageRequest pageable = PageRequest.of(from / size, size, Sort.by("id").ascending());
         return eventService.getEventsByUser(userId, pageable);
@@ -82,14 +79,8 @@ public class PrivateEventController {
 
     @PatchMapping(path = "/{eventId}/requests")
     public EventRequestStatusUpdateResult updateRequestForEvent(@PathVariable long userId,
-                                                          @PathVariable long eventId,
-                                                          @RequestBody EventRequestStatusUpdateRequest requestDto) {
-        //TODO Убрать !!!!!
-        /*//проверяем корректность нового состояния
-        if ((requestDto.getStatus() != RequestStatus.CONFIRMED) &&
-                (requestDto.getStatus() != RequestStatus.REJECTED)){
-            throw new BadRequestException("Попытка задать некорректный статус: " + requestDto.getStatus().name());
-        }*/
+                                                                @PathVariable long eventId,
+                                                                @RequestBody EventRequestStatusUpdateRequest requestDto) {
         log.info("Запрошено согласование заявок на события");
         return eventService.updateRequestsForEvent(userId, eventId, requestDto);
     }

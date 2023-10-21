@@ -4,11 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.practicum.ewm.category.dto.CategoryDto;
 import ru.practicum.ewm.event.model.AdminStateAction;
-import ru.practicum.ewm.event.model.UserStateAction;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Getter

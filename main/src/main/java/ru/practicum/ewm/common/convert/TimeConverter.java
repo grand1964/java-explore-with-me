@@ -16,14 +16,11 @@ public class TimeConverter {
         return new SimpleDateFormat(timePattern).format(timestamp);
     }
 
-    public static String formatTime(LocalDateTime dateTime) {
-        return formatTime(Timestamp.valueOf(dateTime));
-    }
-
     public static String formatNow() {
         return formatTime(Timestamp.from(Instant.now()));
     }
 
+    //время начала текущего дня (используется в статистике)
     public static String formatCurrentDay() {
         String now = formatNow();
         int spaceIndex = now.indexOf(' ');
@@ -39,7 +36,6 @@ public class TimeConverter {
         return Timestamp.valueOf(dateFromString(dateString));
     }
 
-
     /////////////////////////// Оперирование датами //////////////////////////
 
     public static long getDistanceInMinutes(String date1, String date2) {
@@ -48,16 +44,14 @@ public class TimeConverter {
         return (t1 - t2) / 60000L;
     }
 
-    public static boolean after(String date1, String date2) {
-        return date1.compareTo(date2) > 0;
-    }
-
+    //сравнение дат как строк
     public static boolean afterOrEquals(String date1, String date2) {
         return date1.compareTo(date2) >= 0;
     }
 
     /////////////////////////// Поддержка валидации //////////////////////////
 
+    //валидация диапазона дат
     public static boolean validateRange(String rangeStart, String rangeEnd) {
         if ((rangeStart == null) ^ (rangeEnd == null)) { //задана только одна граница
             return false;
@@ -69,6 +63,7 @@ public class TimeConverter {
                 (rangeStart.compareTo(rangeEnd) <= 0);
     }
 
+    //валидация формата даты
     public static boolean validateDateTime(String dateTimeString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timePattern);
         try {

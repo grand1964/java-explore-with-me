@@ -78,8 +78,8 @@ public class EventServiceImpl implements EventService {
             searchCriteria = searchCriteria.and(QEvent.event.eventDate.gt(TimeConverter.formatNow()));
         }
         return eventRepository.findAll(searchCriteria, pageable)
-                    .map(EventDtoMapper::toEventFullDto)
-                    .getContent();
+                .map(EventDtoMapper::toEventFullDto)
+                .getContent();
     }
 
     //публичный поиск событий по параметрам
@@ -331,11 +331,6 @@ public class EventServiceImpl implements EventService {
         );
 
         //Валидация запроса
-        //проверяем, нужно ли подтверждение заявок
-        //TODO Проверить по тестам !!!
-        /*if (!event.getRequestModeration() || (event.getParticipantLimit() == 0)) { //не нужно
-            throw new ConflictException("Подтверждение заявок не требуется");
-        }*/
         //проверяем, есть ли свободные места
         if (event.getConfirmedRequests() == event.getParticipantLimit().longValue()) { //нет, ошибка
             throw new ConflictException("Лимит заявок исчерпан");
@@ -374,11 +369,6 @@ public class EventServiceImpl implements EventService {
                 (targetStatus == RequestStatus.REJECTED) || (event.getParticipantLimit() == 0)) {
             //просто обновляем статусы нужным образом
             processRequests(idToRequest, requestIds, targetStatus, result);
-            //TODO Надо ли это?
-            /*if (targetStatus == RequestStatus.CONFIRMED) {
-                event.setConfirmedRequests(event.getConfirmedRequests() + requestIds.size());
-            }
-            eventRepository.save(event);*/
             return result;
         }
         //далее - одобрение с ограниченным числом участников

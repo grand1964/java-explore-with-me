@@ -39,6 +39,10 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     @Override
     public ParticipationRequestDto createRequest(long userId, long eventId) {
+        //Почему-то это не отсекается ограничением уникальности в базе
+        if (requestRepository.getRequestCountForEventAndRequester(eventId, userId) > 0) { //заявка уже есть
+            throw new ConflictException("Повторная заявка от " + userId + " на участие в событии " + eventId);
+        }
         Event event = eventRepository.findById(eventId).orElseThrow(
                 () -> new NotFoundException("Событие " + eventId + " не найдено")
         );
@@ -52,7 +56,6 @@ public class RequestServiceImpl implements RequestService {
         if (event.getState() != EventState.PUBLISHED) { //событие не опубликовано
             throw new ConflictException("Заявка на участие в неопубликованном событии " + eventId);
         }
-        //TODO Проверить!!!
         if ((event.getParticipantLimit() > 0)
                 && (event.getConfirmedRequests().intValue() == event.getParticipantLimit())) {
             throw new ConflictException("Свободных мест в событии " + eventId + " уже нет");

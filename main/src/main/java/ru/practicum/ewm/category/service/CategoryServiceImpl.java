@@ -9,7 +9,6 @@ import ru.practicum.ewm.category.dto.CategoryDtoMapper;
 import ru.practicum.ewm.category.dto.NewCategoryDto;
 import ru.practicum.ewm.category.model.Category;
 import ru.practicum.ewm.category.storage.CategoryRepository;
-import ru.practicum.ewm.common.exception.ConflictException;
 import ru.practicum.ewm.common.exception.NotFoundException;
 
 import java.util.List;
@@ -59,15 +58,6 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findById(catId).orElseThrow(
                 () -> new NotFoundException("Категория с идентификатором " + catId + " не найдена.")
         );
-
-        //TODO Проверка целостности перенесена на уровень базы; проверить!!!
         categoryRepository.delete(category);
-        //проверяем наличие событий, связанных с категорией
-        /*if (categoryRepository.countEventsWithCategory(catId) == 0) { //их нет
-            categoryRepository.delete(category);
-        } else { //они есть
-            throw new ConflictException(
-                    "Категорию " + catId + "удалить нельзя, поскольку с ней еще связаны события");
-        }*/
     }
 }

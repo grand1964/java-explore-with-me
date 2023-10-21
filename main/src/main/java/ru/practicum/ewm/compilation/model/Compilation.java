@@ -28,8 +28,8 @@ public class Compilation {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "compilations_events",
-                joinColumns = @JoinColumn(name = "compilation_id"),
-                inverseJoinColumns = @JoinColumn(name = "event_id"))
+            joinColumns = @JoinColumn(name = "compilation_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id"))
     Set<Event> events;
 
     @Override

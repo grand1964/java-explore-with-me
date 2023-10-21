@@ -140,18 +140,6 @@ public class EventDtoMapper {
         return dto;
     }
 
-    /*public static void copyDtoToEvent(UpdateEventAdminRequest dto, Event event) {
-        event.setTitle(dto.getTitle());
-        event.setAnnotation(dto.getAnnotation());
-        event.setDescription(dto.getDescription());
-        event.setEventDate(dto.getEventDate());
-        event.setPaid(dto.getPaid());
-        event.setParticipantLimit(dto.getParticipantLimit());
-        event.setLocationLat(dto.getLocation().getLat());
-        event.setLocationLon(dto.getLocation().getLon());
-        event.setRequestModeration(dto.getRequestModeration());
-    }*/
-
     public static List<EventShortDto> toEventShortDtoList(Iterable<Event> events) {
         List<EventShortDto> list = new ArrayList<>();
         for (Event event : events) {

@@ -10,8 +10,6 @@ import ru.practicum.ewm.event.model.EventState;
 import ru.practicum.ewm.user.dto.UserDtoMapper;
 import ru.practicum.ewm.user.dto.UserShortDto;
 
-import javax.validation.constraints.NotNull;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,6 +32,7 @@ public class EventFullDto {
     private Long views;
 
     public void copyFromEvent(Event event) {
+        //копия того, что в EventShortDto
         id = event.getId();
         title = event.getTitle();
         annotation = event.getAnnotation();
@@ -43,7 +42,7 @@ public class EventFullDto {
         confirmedRequests = event.getConfirmedRequests();
         initiator = UserDtoMapper.toUserShortDto(event.getInitiator());
         views = 0L;
-        //то, чего нет в EventShortDto
+        //а теперь - то, чего нет в EventShortDto
         description = event.getDescription();
         createdOn = event.getCreatedOn();
         publishedOn = event.getPublishedOn();

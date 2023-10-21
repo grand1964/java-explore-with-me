@@ -20,28 +20,7 @@ public class ClientStatServiceImpl implements ClientStatService {
     private static final String STAT_APP = "ewm-main-service";
     private StatClient statClient;
 
-    /*//TODO Для постмана
-    @Override
-    public void setEvent(String uri, String ip) {
-
-    }
-
-    //TODO Для постмана
-
-    public List<EventShortDto> getStat(List<EventShortDto> events) {
-        //заполняем количества просмотров в событиях
-        for (EventShortDto event : events) {
-            event.setViews(event.getId());
-        }
-        return events;
-    }
-
-    //TODO Для постмана
-
-    public EventFullDto getStat(EventFullDto event) {
-        return event;
-    }*/
-
+    //сохранение статистики
     @Override
     public void setEvent(String uri, String ip) {
         ResponseEntity<Void> response = statClient.post(
@@ -51,6 +30,7 @@ public class ClientStatServiceImpl implements ClientStatService {
         }
     }
 
+    //заполняет поле статистики в списке событий
     @Override
     public List<EventShortDto> getStat(List<EventShortDto> events) {
         ResponseEntity<List<StatOutDto>> response = statClient.get(
@@ -68,6 +48,7 @@ public class ClientStatServiceImpl implements ClientStatService {
         return events;
     }
 
+    //заполняет поле статистики в одном событии
     @Override
     public EventFullDto getStat(EventFullDto dto) {
         ResponseEntity<List<StatOutDto>> response = statClient.get(
@@ -85,6 +66,7 @@ public class ClientStatServiceImpl implements ClientStatService {
 
     ///////////////////////// Вспомогательные методы /////////////////////////
 
+    //формирует массив uri по списку событий
     private String[] getUris(List<EventShortDto> dtos) {
         int size = dtos.size();
         String[] uris = new String[size];
@@ -94,10 +76,12 @@ public class ClientStatServiceImpl implements ClientStatService {
         return uris;
     }
 
+    //формирует одноэлементный массив uri по событию
     private String[] getUri(EventFullDto dto) {
         return new String[]{"/events/" + dto.getId()};
     }
 
+    //выделяет параметр из uri
     private Long parseUri(String uri) {
         int slashIndex = uri.lastIndexOf("/");
         if (slashIndex == 0) { //events без параметров
@@ -107,6 +91,7 @@ public class ClientStatServiceImpl implements ClientStatService {
         }
     }
 
+    //преобразует список объектов статистики в пары (id, число записей)
     private Map<Long, Long> parseMultipleStat(List<StatOutDto> dtoList) {
         Map<Long, Long> map = new HashMap<>();
         if (dtoList != null) {
@@ -120,6 +105,7 @@ public class ClientStatServiceImpl implements ClientStatService {
         return map;
     }
 
+    //выделяет число вызовов из объекта статистики
     private Long parseSingleStat(StatOutDto dto) {
         long result = 0L;
         if (dto != null) {

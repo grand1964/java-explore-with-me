@@ -23,27 +23,6 @@ public interface EventRepository extends JpaRepository<Event, Long>, QuerydslPre
     //запрос событий по набору id
     Set<Event> findByIdIn(Set<Long> eventIds);
 
-    /*@Query("select e from Event e where e.id in ?1 ")
-    Set<Event> getEventsFromSet(Set<Long> eventIds);*/
-
-    //TODO Проверить !!!!
-
-    /*@Query("select e from Event e " +
-            "where e.initiator.id in ?1 and " +
-            "e.state in ?2 and e.category.id in ?3 and " +
-            "e.eventDate >= ?4 and e.eventDate <= ?5 " +
-            "order by e.id asc ")
-    Page<Event> getEventsByAdminWithTimeBounds(Long[] users, String[] states, Long[] categories,
-                                               String rangeStart, String rangeEnd, Pageable pageable);*/
-
-    /*@Query("select e from Event e " +
-            "where e.initiator.id in ?1 and " +
-            "e.state in ?2 and e.category.id in ?3 and " +
-            "e.eventDate > ?4 " +
-            "order by e.id asc ")
-    Page<Event> getEventsByAdminWithoutTimeBounds(Long[] users, String[] states,
-                                                 Long[] categories, String now, Pageable pageable);*/
-
     /////////////////////////// Запросы пользователя /////////////////////////
 
     //получение пользователем своих событий

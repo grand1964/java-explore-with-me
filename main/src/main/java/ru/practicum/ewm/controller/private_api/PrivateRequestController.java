@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.request.dto.ParticipationRequestDto;
 import ru.practicum.ewm.request.service.RequestService;
 
-import javax.validation.constraints.Positive;
 import java.util.List;
 
 @Slf4j
@@ -34,21 +33,16 @@ public class PrivateRequestController {
     public ResponseEntity<ParticipationRequestDto> createRequest(@PathVariable long userId,
                                                                  @RequestParam Long eventId) {
         log.info("Запрошено создание новой заявки на участие в событии " + eventId);
-        /*return ResponseEntity
+        return ResponseEntity
                 .status(201)
-                .body(requestService.createRequest(userId, eventId));*/
-        ParticipationRequestDto dto = requestService.createRequest(userId, eventId);
-        ResponseEntity<ParticipationRequestDto> resp = ResponseEntity
-                .status(201)
-                .body(dto);
-        return resp;
+                .body(requestService.createRequest(userId, eventId));
     }
 
     //////////////////////////// Обновление событий //////////////////////////
 
     @PatchMapping(path = "/{requestId}/cancel")
     public ParticipationRequestDto cancelRequest(@PathVariable long userId,
-                                          @PathVariable long requestId) {
+                                                 @PathVariable long requestId) {
         log.info("Запрошена отмена пользователем своей заявки " + requestId);
         return requestService.cancelRequest(userId, requestId);
     }

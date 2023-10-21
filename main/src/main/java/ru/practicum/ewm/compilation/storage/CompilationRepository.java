@@ -7,7 +7,4 @@ import ru.practicum.ewm.compilation.model.Compilation;
 
 public interface CompilationRepository extends JpaRepository<Compilation, Long> {
     Page<Compilation> findByPinnedIs(boolean pinned, Pageable pageable);
-
-    /*@Query("select c from Compilation c where c.pinned = ?1 ")
-    List<Compilation> getCompilationsWithPinned(boolean pinned);*/
 }

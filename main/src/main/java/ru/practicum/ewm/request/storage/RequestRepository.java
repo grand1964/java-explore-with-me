@@ -33,9 +33,8 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     @Query("update Request r set r.status = ?2 where r.id in ?1 ")
     int updateStatus(List<Long> ids, RequestStatus status);
 
-    //TODO Убрать !!!!
-    @Modifying(clearAutomatically = true)
-    @Query("update Request r set r.status = ?1 ")
-    //int updateStatusSimple(String created);
-    int updateStatusSimple(RequestStatus status);
+    //количество заявок на данное событие от данного пользователя
+    @Query("select count(r) from Request r " +
+            "where r.event.id = ?1 and r.requester.id = ?2  ")
+    int getRequestCountForEventAndRequester(long eventId, long requesterId);
 }
