@@ -39,10 +39,8 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     @Override
     public ParticipationRequestDto createRequest(long userId, long eventId) {
-        //TODO Проверить !!!
         Event event = eventRepository.findById(eventId).orElseThrow(
-                //() -> new NotFoundException("Событие " + eventId + " не найдено")
-                () -> new ConflictException("Событие " + eventId + " не найдено")
+                () -> new NotFoundException("Событие " + eventId + " не найдено")
         );
         User requester = userRepository.findById(userId).orElseThrow(
                 () -> new NotFoundException("Пользователь " + userId + " не найден")
@@ -56,7 +54,6 @@ public class RequestServiceImpl implements RequestService {
         }
         //TODO Проверить!!!
         if ((event.getParticipantLimit() > 0)
-                //&& (event.getConfirmedRequests().intValue() + 1 == event.getParticipantLimit())) {
                 && (event.getConfirmedRequests().intValue() == event.getParticipantLimit())) {
             throw new ConflictException("Свободных мест в событии " + eventId + " уже нет");
         }
@@ -64,9 +61,8 @@ public class RequestServiceImpl implements RequestService {
                 null, event, requester, TimeConverter.formatNow(), RequestStatus.PENDING);
         if (!event.getRequestModeration() || (event.getParticipantLimit() == 0)) { //число участников не ограничено
             request.setStatus(RequestStatus.CONFIRMED); //выставляем подтверждение
-            //TODO Надо ли это?
-            /*event.setConfirmedRequests(event.getConfirmedRequests() + 1); //меняем число одобренных заявок
-            eventRepository.save(event); //сохраняем изменения в базе*/
+            event.setConfirmedRequests(event.getConfirmedRequests() + 1); //меняем число одобренных заявок
+            eventRepository.save(event); //сохраняем изменения в базе
         }
         Request newRequest = requestRepository.save(request);
         return RequestDtoMapper.toRequestDto(newRequest);

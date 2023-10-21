@@ -1,5 +1,36 @@
 version: '3.1'
 services:
+  main-server:
+    build: main
+    image: main_image
+    container_name: ewm-main-server
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on: 
+      - main-db
+      - stats-server
+    environment:
+      - STATS_SERVER_URL=http://stats-server:9090
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8081
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://main-db:5432/ewm-main
+      - DB_NAME=ewm-main
+      - DB_PORT=6541
+      - DB_USER=root
+      - DB_PASSWORD=root
+
+  main-db:
+    image: postgres:14-alpine
+    volumes:
+      - /var/lib/postgresql/data/
+    container_name: ewm-main-db
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_DB=ewm-main
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+
   stats-server:
     build: stats/service
     image: stats_image
@@ -13,7 +44,7 @@ services:
       - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:9091
       - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/ewm-stats
       - DB_NAME=ewm-stats
-      - DB_PORT=6541
+      - DB_PORT=6542
       - DB_USER=root
       - DB_PASSWORD=root
 
@@ -23,19 +54,9 @@ services:
       - /var/lib/postgresql/data/
     container_name: ewm-stats-db
     ports:
-      - "6541:5432"
+      - "6542:5432"
     environment:
       - POSTGRES_DB=ewm-stats
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
 
-  ewm-service:
-    build: main
-    image: main_image
-    container_name: ewm-main-server
-    ports:
-      - "8080:8080"
-      - "8081:8081"
-
-  ewm-db:
-    image: postgres:14-alpine

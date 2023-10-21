@@ -20,7 +20,7 @@ public class ClientStatServiceImpl implements ClientStatService {
     private static final String STAT_APP = "ewm-main-service";
     private StatClient statClient;
 
-    //TODO Для постмана
+    /*//TODO Для постмана
     @Override
     public void setEvent(String uri, String ip) {
 
@@ -40,22 +40,18 @@ public class ClientStatServiceImpl implements ClientStatService {
 
     public EventFullDto getStat(EventFullDto event) {
         return event;
-    }
+    }*/
 
-    //TODO Вернуть !!!!!
-
-    /*@Override
+    @Override
     public void setEvent(String uri, String ip) {
         ResponseEntity<Void> response = statClient.post(
                 new StatInDto(STAT_APP, uri, ip, TimeConverter.formatNow()));
         if (response.getStatusCode().value() != 201) {
             throw new RuntimeException("Ошибка при сохранении статистики, uri: " + uri);
         }
-    }*/
+    }
 
-    //TODO Вернуть !!!!!
-
-    /*@Override
+    @Override
     public List<EventShortDto> getStat(List<EventShortDto> events) {
         ResponseEntity<List<StatOutDto>> response = statClient.get(
                 TimeConverter.formatCurrentDay(), TimeConverter.formatNow(), getUris(events), true);
@@ -70,11 +66,9 @@ public class ClientStatServiceImpl implements ClientStatService {
             event.setViews(map.get(event.getId()));
         }
         return events;
-    }*/
+    }
 
-    //TODO Вернуть !!!!!
-
-    /*@Override
+    @Override
     public EventFullDto getStat(EventFullDto dto) {
         ResponseEntity<List<StatOutDto>> response = statClient.get(
                 TimeConverter.formatCurrentDay(), TimeConverter.formatNow(), getUri(dto), true);
@@ -87,7 +81,7 @@ public class ClientStatServiceImpl implements ClientStatService {
         }
         dto.setViews(parseSingleStat(response.getBody().get(0)));
         return dto;
-    }*/
+    }
 
     ///////////////////////// Вспомогательные методы /////////////////////////
 

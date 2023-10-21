@@ -20,6 +20,7 @@ import ru.practicum.ewm.event.dto.*;
 import ru.practicum.ewm.event.model.AdminStateAction;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.event.model.EventState;
+import ru.practicum.ewm.event.model.QEvent;
 import ru.practicum.ewm.event.storage.EventRepository;
 import ru.practicum.ewm.request.dto.EventRequestStatusUpdateRequest;
 import ru.practicum.ewm.request.dto.EventRequestStatusUpdateResult;
@@ -33,10 +34,6 @@ import ru.practicum.ewm.user.storage.UserRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.BDDMockito.given;
 
 @Slf4j
 @Service
@@ -53,7 +50,7 @@ public class EventServiceImpl implements EventService {
     //запрос событий администратором
     @Override
     public List<EventFullDto> getEventsByAdmin(Long[] users, String[] states, Long[] categories,
-                                        String rangeStart, String rangeEnd, Pageable pageable) {
+                                               String rangeStart, String rangeEnd, Pageable pageable) {
         //валидация времени
         if (!TimeConverter.validateRange(rangeStart, rangeEnd)) {
             throw new BadRequestException("Недопустимые границы временного диапазона");
@@ -327,7 +324,7 @@ public class EventServiceImpl implements EventService {
     @Transactional
     @Override
     public EventRequestStatusUpdateResult updateRequestsForEvent(long userId, long eventId,
-                                                                EventRequestStatusUpdateRequest requestDto) {
+                                                                 EventRequestStatusUpdateRequest requestDto) {
         //читаем событие
         Event event = eventRepository.findById(eventId).orElseThrow(
                 () -> new NotFoundException("Не найдено событие с идентификатором " + eventId)
@@ -340,9 +337,7 @@ public class EventServiceImpl implements EventService {
             throw new ConflictException("Подтверждение заявок не требуется");
         }*/
         //проверяем, есть ли свободные места
-        //TODO Проверить !!!
-        //if (event.getConfirmedRequests() == event.getParticipantLimit().longValue()) { //нет, ошибка
-        if (event.getConfirmedRequests() + 1 == event.getParticipantLimit().longValue()) { //нет, ошибка
+        if (event.getConfirmedRequests() == event.getParticipantLimit().longValue()) { //нет, ошибка
             throw new ConflictException("Лимит заявок исчерпан");
         }
         //создаем список идентификаторов без дублей
