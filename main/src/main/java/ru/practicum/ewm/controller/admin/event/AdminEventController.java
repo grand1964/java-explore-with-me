@@ -1,4 +1,4 @@
-package ru.practicum.ewm.controller.admin_api;
+package ru.practicum.ewm.controller.admin.event;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,6 +6,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.ewm.common.convert.TimeConverter;
+import ru.practicum.ewm.common.exception.BadRequestException;
+import ru.practicum.ewm.event.dto.AdminGetParams;
 import ru.practicum.ewm.event.dto.EventFullDto;
 import ru.practicum.ewm.event.dto.UpdateEventAdminRequest;
 import ru.practicum.ewm.event.service.EventService;
@@ -32,9 +35,14 @@ public class AdminEventController {
                                         @RequestParam(required = false) String rangeEnd,
                                         @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                         @RequestParam(defaultValue = "10") @Positive int size) {
+        //валидация времени
+        if (!TimeConverter.validateRange(rangeStart, rangeEnd)) {
+            throw new BadRequestException("Недопустимые границы временного диапазона");
+        }
         log.debug("Запрошено получение списка событий администратором");
         PageRequest pageable = PageRequest.of(from / size, size, Sort.by("id").ascending());
-        return eventService.getEventsByAdmin(users, states, categories, rangeStart, rangeEnd, pageable);
+        AdminGetParams params = new AdminGetParams(users, states, categories, rangeStart, rangeEnd);
+        return eventService.getEventsByAdmin(params, pageable);
     }
 
     //обновление администратором события и его статуса (отклонение/регистрация)

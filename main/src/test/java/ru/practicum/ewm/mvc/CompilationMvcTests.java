@@ -14,8 +14,8 @@ import ru.practicum.ewm.compilation.dto.CompilationDto;
 import ru.practicum.ewm.compilation.dto.NewCompilationDto;
 import ru.practicum.ewm.compilation.dto.UpdateCompilationRequest;
 import ru.practicum.ewm.compilation.service.CompilationService;
-import ru.practicum.ewm.controller.admin_api.AdminCompilationController;
-import ru.practicum.ewm.controller.public_api.PublicCompilationController;
+import ru.practicum.ewm.controller.admin.compilation.AdminCompilationController;
+import ru.practicum.ewm.controller.pub.compilation.PublicCompilationController;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;

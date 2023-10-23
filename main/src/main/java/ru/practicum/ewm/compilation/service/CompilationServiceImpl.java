@@ -2,6 +2,7 @@ package ru.practicum.ewm.compilation.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.practicum.ewm.common.exception.BadRequestException;
@@ -23,22 +24,20 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class CompilationServiceImpl implements CompilationService {
-    CompilationRepository compilationRepository;
-    EventRepository eventRepository;
+    private CompilationRepository compilationRepository;
+    private EventRepository eventRepository;
 
     //////////////////////////// Публичные запросы ///////////////////////////
 
     @Override
     public List<CompilationDto> getCompilations(Boolean pinned, Pageable pageable) {
+        Page<Compilation> page;
         if (pinned != null) { //нужно учитывать закрепленные/незакрепленные
-            return compilationRepository.findByPinnedIs(pinned, pageable)
-                    .map(CompilationDtoMapper::toCompilationDto)
-                    .getContent();
+            page = compilationRepository.findByPinnedIs(pinned, pageable);
         } else { //выводим все
-            return compilationRepository.findAll(pageable)
-                    .map(CompilationDtoMapper::toCompilationDto)
-                    .getContent();
+            page = compilationRepository.findAll(pageable);
         }
+        return page.map(CompilationDtoMapper::toCompilationDto).getContent();
     }
 
     @Override

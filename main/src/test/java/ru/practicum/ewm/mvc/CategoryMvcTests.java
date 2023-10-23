@@ -13,8 +13,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import ru.practicum.ewm.category.dto.CategoryDto;
 import ru.practicum.ewm.category.dto.NewCategoryDto;
 import ru.practicum.ewm.category.service.CategoryService;
-import ru.practicum.ewm.controller.admin_api.AdminCategoryController;
-import ru.practicum.ewm.controller.public_api.PublicCategoryController;
+import ru.practicum.ewm.controller.admin.category.AdminCategoryController;
+import ru.practicum.ewm.controller.pub.category.PublicCategoryController;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;

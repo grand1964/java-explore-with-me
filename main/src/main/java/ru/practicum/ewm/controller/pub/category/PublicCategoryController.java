@@ -1,4 +1,4 @@
-package ru.practicum.ewm.controller.public_api;
+package ru.practicum.ewm.controller.pub.category;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class PublicCategoryController {
     //создание новой категории
     @GetMapping
     public List<CategoryDto> getCategory(@RequestParam(defaultValue = "0") @PositiveOrZero int from,
-                                            @RequestParam(defaultValue = "10") @Positive int size) {
+                                         @RequestParam(defaultValue = "10") @Positive int size) {
         log.debug("Запрошено получение категорий");
         PageRequest pageable = PageRequest.of(from / size, size, Sort.by("id").ascending());
         return categoryService.getCategories(pageable);

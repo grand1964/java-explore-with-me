@@ -1,5 +1,7 @@
 package ru.practicum.ewm.common.convert;
 
+import lombok.experimental.UtilityClass;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -7,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+@UtilityClass
 public class TimeConverter {
     public static final String timePattern = "yyyy-MM-dd HH:mm:ss";
 

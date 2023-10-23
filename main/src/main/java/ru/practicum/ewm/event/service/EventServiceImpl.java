@@ -17,10 +17,7 @@ import ru.practicum.ewm.common.exception.ConflictException;
 import ru.practicum.ewm.common.exception.NotFoundException;
 import ru.practicum.ewm.common.stat.ClientStatService;
 import ru.practicum.ewm.event.dto.*;
-import ru.practicum.ewm.event.model.AdminStateAction;
-import ru.practicum.ewm.event.model.Event;
-import ru.practicum.ewm.event.model.EventState;
-import ru.practicum.ewm.event.model.QEvent;
+import ru.practicum.ewm.event.model.*;
 import ru.practicum.ewm.event.storage.EventRepository;
 import ru.practicum.ewm.request.dto.EventRequestStatusUpdateRequest;
 import ru.practicum.ewm.request.dto.EventRequestStatusUpdateResult;
@@ -38,6 +35,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @AllArgsConstructor
+@Transactional
 public class EventServiceImpl implements EventService {
     private EventRepository eventRepository;
     private UserRepository userRepository;
@@ -49,33 +47,31 @@ public class EventServiceImpl implements EventService {
 
     //запрос событий администратором
     @Override
-    public List<EventFullDto> getEventsByAdmin(Long[] users, String[] states, Long[] categories,
-                                               String rangeStart, String rangeEnd, Pageable pageable) {
-        //валидация времени
-        if (!TimeConverter.validateRange(rangeStart, rangeEnd)) {
-            throw new BadRequestException("Недопустимые границы временного диапазона");
-        }
+    public List<EventFullDto> getEventsByAdmin(AdminGetParams params, Pageable pageable) {
         //построение критериев запроса
         BooleanExpression searchCriteria = Expressions.asBoolean(true).isTrue();
-        if (users != null) {
+        if (params.getUsers() != null) {
             searchCriteria = searchCriteria
-                    .and(QEvent.event.initiator.id.in(users));
+                    .and(QEvent.event.initiator.id.in(params.getUsers()));
         }
-        if (states != null) {
-            List<EventState> stateList = Arrays.stream(states)
+        if (params.getStates() != null) {
+            List<EventState> stateList = Arrays.stream(params.getStates())
                     .map(EventState::valueOf)
                     .collect(Collectors.toList());
             searchCriteria = searchCriteria
                     .and(QEvent.event.state.in(stateList));
         }
-        if (categories != null) {
+        if (params.getCategories() != null) {
             searchCriteria = searchCriteria
-                    .and(QEvent.event.category.id.in(categories));
+                    .and(QEvent.event.category.id.in(params.getCategories()));
         }
-        if ((rangeStart != null) && (rangeEnd != null)) { //диапазон задан корректно
-            searchCriteria = searchCriteria.and(QEvent.event.eventDate.between(rangeStart, rangeEnd));
+        if ((params.getRangeStart() != null) && (params.getRangeEnd() != null)) { //диапазон задан корректно
+            searchCriteria = searchCriteria
+                    .and(QEvent.event.eventDate
+                            .between(params.getRangeStart(), params.getRangeEnd()));
         } else { //ищем будущие события
-            searchCriteria = searchCriteria.and(QEvent.event.eventDate.gt(TimeConverter.formatNow()));
+            searchCriteria = searchCriteria
+                    .and(QEvent.event.eventDate.gt(TimeConverter.formatNow()));
         }
         return eventRepository.findAll(searchCriteria, pageable)
                 .map(EventDtoMapper::toEventFullDto)
@@ -84,54 +80,43 @@ public class EventServiceImpl implements EventService {
 
     //публичный поиск событий по параметрам
     @Override
-    public List<EventShortDto> searchEvents(
-            String text, Long[] categories, Boolean paid, String rangeStart, String rangeEnd,
-            Boolean onlyAvailable, String sort, int from, int size) {
-        //валидация
-        if ((sort != null) && (!sort.equals("EVENT_DATE")) && (!sort.equals("VIEWS"))) {
-            throw new BadRequestException("Недопустимый параметр сортировки: " + sort);
-        }
-        if (!TimeConverter.validateRange(rangeStart, rangeEnd)) {
-            throw new BadRequestException("Недопустимые границы временного диапазона");
-        }
+    public List<EventShortDto> searchEvents(PublicGetParams params, int from, int size) {
         //начало построения критериев запроса: все события должны быть одобрены
         BooleanExpression searchCriteria = QEvent.event.state.eq(EventState.PUBLISHED);
+        String text = params.getText();
         if (text != null) {
             searchCriteria = searchCriteria
                     .and(QEvent.event.annotation.containsIgnoreCase(text)
                             .or(QEvent.event.description.containsIgnoreCase(text)));
         }
-        if (categories != null) {
-            searchCriteria = searchCriteria.and(QEvent.event.category.id.in(categories));
+        if (params.getCategories() != null) {
+            searchCriteria = searchCriteria
+                    .and(QEvent.event.category.id.in(params.getCategories()));
         }
-        if (paid != null) {
-            searchCriteria = searchCriteria.and(QEvent.event.paid.eq(paid));
+        if (params.getPaid() != null) {
+            searchCriteria = searchCriteria
+                    .and(QEvent.event.paid.eq(params.getPaid()));
         }
-        if ((rangeStart != null) && (rangeEnd != null)) { //диапазон задан корректно
-            searchCriteria = searchCriteria.and(QEvent.event.eventDate.between(rangeStart, rangeEnd));
+        if ((params.getRangeStart() != null) && (params.getRangeEnd() != null)) { //диапазон задан корректно
+            searchCriteria = searchCriteria
+                    .and(QEvent.event.eventDate
+                            .between(params.getRangeStart(), params.getRangeEnd()));
         } else { //ищем будущие события
             searchCriteria = searchCriteria.and(QEvent.event.eventDate.gt(TimeConverter.formatNow()));
         }
-        if ((onlyAvailable != null) && onlyAvailable) {
+        if ((params.getOnlyAvailable() != null) && params.getOnlyAvailable()) {
             searchCriteria = searchCriteria
                     .and(QEvent.event.participantLimit.gt(QEvent.event.confirmedRequests)
                             .or(QEvent.event.participantLimit.eq(0)));
         }
-
-        //выполняем запрос
         PageRequest pageable;
-        if (sort == null) {
+        if (params.getSort() == null) {
             pageable = PageRequest.of(from / size, size);
         } else {
-            switch (sort) {
-                case "EVENT_DATE":
-                    pageable = PageRequest.of(from / size, size, Sort.by("eventDate").descending());
-                    break;
-                case "VIEWS":
-                    pageable = null;
-                    break;
-                default:
-                    throw new BadRequestException("Некорректный параметр сортировки: " + sort);
+            if (params.getSort() == EventSortMode.EVENT_DATE) {
+                pageable = PageRequest.of(from / size, size, Sort.by("eventDate").descending());
+            } else {
+                pageable = null;
             }
         }
         if (pageable != null) { //сортировка не требуется или она по числу просмотров
@@ -139,8 +124,10 @@ public class EventServiceImpl implements EventService {
             List<EventShortDto> dtoList = eventRepository.findAll(searchCriteria, pageable)
                     .map(EventDtoMapper::toEventShortDto)
                     .getContent();
-            //добавляем в результат просмотры из сервиса статистики и возвращаем его
-            return statService.getStat(dtoList);
+            //добавляем в результат просмотры из сервиса статистики
+            statService.addStatToEvents(dtoList);
+            //и возвращаем его
+            return dtoList;
         }
 
         //далее - случай сортировки по просмотрам
@@ -149,7 +136,7 @@ public class EventServiceImpl implements EventService {
         //преобразуем их в список dto
         List<EventShortDto> dtoList = EventDtoMapper.toEventShortDtoList(events);
         //добавляем в результат просмотры из сервиса статистики
-        dtoList = statService.getStat(dtoList);
+        statService.addStatToEvents(dtoList);
         //если данных мало - пагинация дает пустой массив
         int dataSize = dtoList.size();
         if (from >= dataSize) {
@@ -185,7 +172,10 @@ public class EventServiceImpl implements EventService {
             throw new NotFoundException("Событие с идентификатором " + eventId + " не опубликовано");
         }
         EventFullDto dto = EventDtoMapper.toEventFullDto(event);
-        return statService.getStat(dto);
+        //добавляем статистику просмотров в событие
+        statService.addStatToEvent(dto);
+        //и возвращаем его
+        return dto;
     }
 
     //запрос инициатором информации о своем событии
@@ -204,7 +194,6 @@ public class EventServiceImpl implements EventService {
 
     ///////////////////////////// Создание событий ///////////////////////////
 
-    @Transactional
     @Override
     public EventFullDto createEvent(long userId, NewEventDto eventDto) {
         //проверка временных условий
@@ -237,7 +226,6 @@ public class EventServiceImpl implements EventService {
     //////////////////////////// Обновление событий //////////////////////////
 
     //обновление события администратором с подтверждением/отклонением
-    @Transactional
     @Override
     public EventFullDto updateEventByAdmin(long eventId, UpdateEventAdminRequest eventDto) {
         //читаем оригинальное событие или выдаем ошибку
@@ -283,7 +271,6 @@ public class EventServiceImpl implements EventService {
         return EventDtoMapper.toEventFullDto(newEvent);
     }
 
-    @Transactional
     @Override
     public EventFullDto updateEventByUser(long userId, long eventId, UpdateEventUserRequest eventDto) {
         //читаем оригинальное событие
@@ -321,7 +308,6 @@ public class EventServiceImpl implements EventService {
         return EventDtoMapper.toEventFullDto(updatedEvent);
     }
 
-    @Transactional
     @Override
     public EventRequestStatusUpdateResult updateRequestsForEvent(long userId, long eventId,
                                                                  EventRequestStatusUpdateRequest requestDto) {

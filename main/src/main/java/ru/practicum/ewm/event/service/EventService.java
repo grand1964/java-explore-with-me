@@ -9,12 +9,9 @@ import ru.practicum.ewm.request.dto.ParticipationRequestDto;
 import java.util.List;
 
 public interface EventService {
-    List<EventFullDto> getEventsByAdmin(Long[] users, String[] states, Long[] categories,
-                                        String rangeStart, String rangeEnd, Pageable pageable);
+    List<EventFullDto> getEventsByAdmin(AdminGetParams params, Pageable pageable);
 
-    List<EventShortDto> searchEvents(
-            String text, Long[] categories, Boolean paid, String rangeStart, String rangeEnd,
-            Boolean onlyAvailable, String sort, int from, int size);
+    List<EventShortDto> searchEvents(PublicGetParams params, int from, int size);
 
     EventFullDto getEventById(long eventId);
 

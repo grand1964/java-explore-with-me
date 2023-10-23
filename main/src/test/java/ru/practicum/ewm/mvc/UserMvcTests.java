@@ -10,7 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.practicum.ewm.controller.admin_api.AdminUserController;
+import ru.practicum.ewm.controller.admin.user.AdminUserController;
 import ru.practicum.ewm.user.dto.NewUserRequest;
 import ru.practicum.ewm.user.dto.UserDto;
 import ru.practicum.ewm.user.service.UserService;
@@ -21,8 +21,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -50,9 +49,9 @@ public class UserMvcTests {
     @Test
     void getUsersWithIdsTest() throws Exception {
         UserDto[] users = {userVasyaOut, userPetyaOut, userFedyaOut};
-        when(userService.getUsers(any(Long[].class), any(Pageable.class)))
+        when(userService.getUsers(anyList(), any(Pageable.class)))
                 .thenAnswer(invocationOnMock -> {
-                            Long[] userIds = invocationOnMock.getArgument(0);
+                            List<Long> userIds = invocationOnMock.getArgument(0);
                             List<UserDto> dtos = new ArrayList<>();
                             for (long id : userIds) {
                                 dtos.add(users[(int) id]);

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.common.exception.NotFoundException;
 import ru.practicum.ewm.user.dto.NewUserRequest;
 import ru.practicum.ewm.user.dto.UserDto;
@@ -16,11 +17,12 @@ import java.util.List;
 @Slf4j
 @Service
 @AllArgsConstructor
+@Transactional
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public List<UserDto> getUsers(Long[] ids, Pageable pageable) {
+    public List<UserDto> getUsers(List<Long> ids, Pageable pageable) {
         if (ids == null) { //идентификаторы не заданы
             log.debug("Получен список всех пользователей");
             return userRepository.findAll(pageable)

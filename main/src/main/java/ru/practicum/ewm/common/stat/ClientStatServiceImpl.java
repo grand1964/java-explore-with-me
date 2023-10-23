@@ -32,7 +32,7 @@ public class ClientStatServiceImpl implements ClientStatService {
 
     //заполняет поле статистики в списке событий
     @Override
-    public List<EventShortDto> getStat(List<EventShortDto> events) {
+    public void addStatToEvents(List<EventShortDto> events) {
         ResponseEntity<List<StatOutDto>> response = statClient.get(
                 TimeConverter.formatCurrentDay(), TimeConverter.formatNow(), getUris(events), true);
         if (response.getStatusCode().value() != 200) {
@@ -45,12 +45,11 @@ public class ClientStatServiceImpl implements ClientStatService {
         for (EventShortDto event : events) {
             event.setViews(map.get(event.getId()));
         }
-        return events;
     }
 
     //заполняет поле статистики в одном событии
     @Override
-    public EventFullDto getStat(EventFullDto dto) {
+    public void addStatToEvent(EventFullDto dto) {
         ResponseEntity<List<StatOutDto>> response = statClient.get(
                 TimeConverter.formatCurrentDay(), TimeConverter.formatNow(), getUri(dto), true);
         if (response.getStatusCode().value() != 200) {
@@ -61,7 +60,6 @@ public class ClientStatServiceImpl implements ClientStatService {
             throw new RuntimeException("Ошибка при запросе статистики");
         }
         dto.setViews(parseSingleStat(response.getBody().get(0)));
-        return dto;
     }
 
     ///////////////////////// Вспомогательные методы /////////////////////////

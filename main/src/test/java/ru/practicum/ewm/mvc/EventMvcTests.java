@@ -7,13 +7,14 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.practicum.ewm.common.stat.ClientStatService;
-import ru.practicum.ewm.controller.admin_api.AdminEventController;
-import ru.practicum.ewm.controller.private_api.PrivateEventController;
-import ru.practicum.ewm.controller.public_api.PublicEventController;
+import ru.practicum.ewm.controller.admin.event.AdminEventController;
+import ru.practicum.ewm.controller.priv.event.PrivateEventController;
+import ru.practicum.ewm.controller.pub.event.PublicEventController;
 import ru.practicum.ewm.event.dto.*;
 import ru.practicum.ewm.event.service.EventService;
 import ru.practicum.ewm.request.dto.EventRequestStatusUpdateRequest;
@@ -75,13 +76,12 @@ public class EventMvcTests {
         String[] stateValues = {"s"};
         Long[] categoryIds = {0L};
         NewEventDto inDto = MvcTestUtil.createNewEventDto();
-        when(eventService.getEventsByAdmin(any(Long[].class), any(String[].class), any(Long[].class),
-                any(String.class), any(String.class), any(Pageable.class)))
+        when(eventService.getEventsByAdmin(any(AdminGetParams.class), any(Pageable.class)))
                 .thenReturn(List.of(MvcTestUtil.copyEventFullDto(inDto)));
 
         mvc.perform(get("/admin/events?users={users}&states={states}" +
                                 "&categories={categories}&rangeStart={rangeStart}&rangeEnd={rangeEnd}",
-                        userIds, stateValues, categoryIds, "a", "b")
+                        userIds, stateValues, categoryIds, "2007-09-06 00:11:22", "2017-09-06 00:11:22")
                         .characterEncoding(StandardCharsets.UTF_8)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -98,10 +98,10 @@ public class EventMvcTests {
     @Test
     void getNormalEventsByAdminWithoutOptionalParamsTest() throws Exception {
         NewEventDto inDto = MvcTestUtil.createNewEventDto();
-        when(eventService.getEventsByAdmin(isNull(), isNull(), isNull(), isNull(), isNull(), any(Pageable.class)))
+        when(eventService.getEventsByAdmin(any(AdminGetParams.class), any(PageRequest.class)))
                 .thenReturn(List.of(MvcTestUtil.copyEventFullDto(inDto)));
 
-        mvc.perform(get("/admin/events?")
+        mvc.perform(get("/admin/events")
                         .characterEncoding(StandardCharsets.UTF_8)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -137,13 +137,12 @@ public class EventMvcTests {
     void normalSearchEventsWithOptionalParamsTest() throws Exception {
         Long[] categoryIds = {0L};
         EventShortDto outDto = MvcTestUtil.createEventShortDto();
-        when(eventService.searchEvents(anyString(), any(Long[].class), anyBoolean(), anyString(), anyString(),
-                anyBoolean(), anyString(), anyInt(), anyInt()))
+        when(eventService.searchEvents(any(PublicGetParams.class), anyInt(), anyInt()))
                 .thenReturn(List.of(outDto));
 
         mvc.perform(get("/events?text={text}&categories={categories}&paid={paid}" +
                                 "&rangeStart={rangeStart}&rangeEnd={rangeEnd}&onlyAvailable={onlyAvailable}&sort={sort}",
-                        "x", categoryIds, false, "b", "e", false, "s")
+                        "x", categoryIds, false, "2007-09-06 00:11:22", "2017-09-06 00:11:22", false, "EVENT_DATE")
                         .characterEncoding(StandardCharsets.UTF_8)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -157,8 +156,7 @@ public class EventMvcTests {
     @Test
     void normalSearchEventsWithoutOptionalParamsTest() throws Exception {
         EventShortDto outDto = MvcTestUtil.createEventShortDto();
-        when(eventService.searchEvents(isNull(), isNull(), isNull(), isNull(), isNull(),
-                anyBoolean(), isNull(), anyInt(), anyInt()))
+        when(eventService.searchEvents(any(PublicGetParams.class), anyInt(), anyInt()))
                 .thenReturn(List.of(outDto));
 
         mvc.perform(get("/events?onlyAvailable={onlyAvailable}",

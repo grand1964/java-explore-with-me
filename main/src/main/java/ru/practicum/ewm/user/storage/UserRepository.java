@@ -11,5 +11,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select distinct u from User u " +
             "where u.id in ?1 " +
             "order by u.id asc ")
-    List<User> findUsersForIds(Long[] ids);
+    List<User> findUsersForIds(List<Long> ids);
 }

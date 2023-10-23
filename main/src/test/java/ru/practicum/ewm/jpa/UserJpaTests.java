@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import ru.practicum.ewm.user.model.User;
 import ru.practicum.ewm.user.storage.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,17 +48,17 @@ public class UserJpaTests {
     public void getUsersForIdsTest() {
         User userPetya = new User(null, "Petya", "petya@com");
         User userFedya = new User(null, "Fedya", "fedya@com");
-        Long[] ids = new Long[3];
+        List<Long> ids = new ArrayList<>();
         repository.save(userVasya);
-        ids[0] = repository.save(userPetya).getId();
-        ids[1] = repository.save(userFedya).getId();
+        ids.add(repository.save(userPetya).getId());
+        ids.add(repository.save(userFedya).getId());
         //добавляем дублирующийся индекс
-        ids[2] = ids[0];
+        ids.add(ids.get(0));
         List<User> users = repository.findUsersForIds(ids);
         assertEquals(users.size(), 2);
-        assertEquals(users.get(0).getId(), ids[0]);
+        assertEquals(users.get(0).getId(), ids.get(0));
         assertEquals(users.get(0).getName(), "Petya");
-        assertEquals(users.get(1).getId(), ids[1]);
+        assertEquals(users.get(1).getId(), ids.get(1));
         assertEquals(users.get(1).getName(), "Fedya");
     }
 
@@ -83,9 +84,7 @@ public class UserJpaTests {
         repository.save(userVasya);
         repository.save(userPetya);
         repository.save(userFedya);
-        int from = 0;
-        int size = 2;
-        PageRequest pageable = PageRequest.of(from / size, size, Sort.by("id").ascending());
+        PageRequest pageable = PageRequest.of(0, 2, Sort.by("id").ascending());
         List<User> users = repository.findAll(pageable).getContent();
         assertEquals(users.size(), 2);
         assertEquals(users.get(0).getName(), "Vasya");

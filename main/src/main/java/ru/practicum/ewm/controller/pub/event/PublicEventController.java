@@ -1,14 +1,16 @@
-package ru.practicum.ewm.controller.public_api;
+package ru.practicum.ewm.controller.pub.event;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.ewm.common.convert.TimeConverter;
+import ru.practicum.ewm.common.exception.BadRequestException;
 import ru.practicum.ewm.common.stat.ClientStatService;
 import ru.practicum.ewm.event.dto.EventFullDto;
 import ru.practicum.ewm.event.dto.EventShortDto;
+import ru.practicum.ewm.event.dto.PublicGetParams;
+import ru.practicum.ewm.event.model.EventSortMode;
 import ru.practicum.ewm.event.service.EventService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,16 +35,20 @@ public class PublicEventController {
                                          @RequestParam(required = false) String rangeStart,
                                          @RequestParam(required = false) String rangeEnd,
                                          @RequestParam(defaultValue = "false") Boolean onlyAvailable,
-                                         @RequestParam(required = false) String sort,
+                                         @RequestParam(required = false) EventSortMode sort,
                                          @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                          @RequestParam(defaultValue = "10") @Positive int size,
                                          HttpServletRequest request) {
+
+        //валидация
+        if (!TimeConverter.validateRange(rangeStart, rangeEnd)) {
+            throw new BadRequestException("Недопустимые границы временного диапазона");
+        }
         log.debug("Запрошено получение списка событий");
         statService.setEvent(request.getRequestURI(), request.getRemoteAddr());
         log.debug("Запрос на получение списка событий добавлен в статистику");
-        PageRequest pageable = PageRequest.of(from / size, size, Sort.by("id").ascending());
-        return eventService.searchEvents(
-                text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
+        PublicGetParams params = new PublicGetParams(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort);
+        return eventService.searchEvents(params, from, size);
     }
 
     //полная информация о событии

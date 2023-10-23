@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.StatInDto;
 import ru.practicum.ewm.StatOutDto;
 import ru.practicum.ewm.model.StatDtoMapper;
@@ -14,6 +15,7 @@ import java.util.List;
 @Slf4j
 @Service
 @AllArgsConstructor(onConstructor_ = @Autowired)
+@Transactional
 public class StatServiceImpl implements StatService {
     private final StatRepository statRepository;
 

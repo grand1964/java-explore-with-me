@@ -1,4 +1,4 @@
-package ru.practicum.ewm.controller.private_api;
+package ru.practicum.ewm.controller.priv.event;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package ru.practicum.ewm.controller.admin_api;
+package ru.practicum.ewm.controller.admin.user;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +15,8 @@ import ru.practicum.ewm.user.service.UserService;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -28,11 +30,16 @@ public class AdminUserController {
     //получение пользователей
     @GetMapping
     public List<UserDto> getUsers(@RequestParam(required = false) Long[] ids,
-                                                 @RequestParam(defaultValue = "0") @PositiveOrZero int from,
-                                                 @RequestParam(defaultValue = "10") @Positive int size) {
+                                  @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                  @RequestParam(defaultValue = "10") @Positive int size) {
         log.debug("Запрошено получение пользователей");
+        List<Long> idsList = null;
+        if (ids != null) {
+            idsList = new ArrayList<>();
+            Collections.addAll(idsList, ids);
+        }
         PageRequest pageable = PageRequest.of(from / size, size, Sort.by("id").ascending());
-        return userService.getUsers(ids, pageable);
+        return userService.getUsers(idsList, pageable);
     }
 
     // создание нового пользователя

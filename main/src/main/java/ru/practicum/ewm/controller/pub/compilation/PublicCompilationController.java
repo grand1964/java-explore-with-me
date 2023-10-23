@@ -1,4 +1,4 @@
-package ru.practicum.ewm.controller.public_api;
+package ru.practicum.ewm.controller.pub.compilation;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

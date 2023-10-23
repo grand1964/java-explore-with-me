@@ -7,7 +7,7 @@ import ru.practicum.ewm.user.dto.UserDto;
 import java.util.List;
 
 public interface UserService {
-    List<UserDto> getUsers(Long[] ids, Pageable pageable);
+    List<UserDto> getUsers(List<Long> ids, Pageable pageable);
 
     UserDto createUser(NewUserRequest userRequest);
 

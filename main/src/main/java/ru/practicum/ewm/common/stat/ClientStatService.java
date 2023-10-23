@@ -8,7 +8,7 @@ import java.util.List;
 public interface ClientStatService {
     void setEvent(String uri, String ip);
 
-    List<EventShortDto> getStat(List<EventShortDto> events);
+    void addStatToEvents(List<EventShortDto> events);
 
-    EventFullDto getStat(EventFullDto event);
+    void addStatToEvent(EventFullDto event);
 }

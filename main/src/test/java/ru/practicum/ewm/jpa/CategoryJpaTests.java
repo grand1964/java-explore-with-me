@@ -48,8 +48,8 @@ public class CategoryJpaTests {
 
     @Test
     public void postWithDuplicatedNameTest() {
-        Category badCategory = new Category(null, "Категория 1");
         categoryRepository.save(cat1);
+        Category badCategory = new Category(null, "Категория 1");
         assertThrows(DataIntegrityViolationException.class, () -> categoryRepository.save(badCategory));
     }
 

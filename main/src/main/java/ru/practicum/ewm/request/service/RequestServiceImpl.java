@@ -23,6 +23,7 @@ import java.util.List;
 @Slf4j
 @Service
 @AllArgsConstructor
+@Transactional
 public class RequestServiceImpl implements RequestService {
     private RequestRepository requestRepository;
     private EventRepository eventRepository;
@@ -36,7 +37,6 @@ public class RequestServiceImpl implements RequestService {
         return RequestDtoMapper.toRequestDtoList(requestRepository.getUserRequestsForForeignEvents(userId));
     }
 
-    @Transactional
     @Override
     public ParticipationRequestDto createRequest(long userId, long eventId) {
         //Почему-то это не отсекается ограничением уникальности в базе
