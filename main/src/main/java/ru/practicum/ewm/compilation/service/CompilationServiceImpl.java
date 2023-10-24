@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.common.exception.BadRequestException;
 import ru.practicum.ewm.common.exception.NotFoundException;
 import ru.practicum.ewm.compilation.dto.CompilationDto;
@@ -23,6 +24,7 @@ import java.util.Set;
 @Slf4j
 @Service
 @AllArgsConstructor
+@Transactional
 public class CompilationServiceImpl implements CompilationService {
     private CompilationRepository compilationRepository;
     private EventRepository eventRepository;
@@ -58,10 +60,7 @@ public class CompilationServiceImpl implements CompilationService {
         } else {
             eventIds = new HashSet<>();
         }
-        Set<Event> events = eventRepository.findByIdIn(eventIds);
-        if (events.size() < eventIds.size()) { //не все события найдены
-            throw new BadRequestException("Не все события найдены");
-        }
+        Set<Event> events = getEventsFromIds(eventIds);
         Compilation compilation = CompilationDtoMapper.toCompilation(dto, events);
         Compilation newCompilation = compilationRepository.save(compilation);
         return CompilationDtoMapper.toCompilationDto(newCompilation);
@@ -79,7 +78,7 @@ public class CompilationServiceImpl implements CompilationService {
             compilation.setPinned(dto.getPinned());
         }
         if (dto.getEvents() != null) {
-            compilation.setEvents(getEventsFromIds(dto.getEvents()));
+            compilation.setEvents(getEventsFromIds(new HashSet<>(dto.getEvents())));
         }
         Compilation newCompilation = compilationRepository.save(compilation);
         return CompilationDtoMapper.toCompilationDto(newCompilation);
@@ -96,10 +95,9 @@ public class CompilationServiceImpl implements CompilationService {
 
     /////////////////////////////// Конвертация //////////////////////////////
 
-    private Set<Event> getEventsFromIds(List<Long> ids) {
-        Set<Long> eventIds = new HashSet<>(ids);
-        Set<Event> events = eventRepository.findByIdIn(eventIds);
-        if (events.size() < eventIds.size()) { //не все события найдены
+    private Set<Event> getEventsFromIds(Set<Long> ids) {
+        Set<Event> events = eventRepository.findByIdIn(ids);
+        if (events.size() < ids.size()) { //не все события найдены
             throw new BadRequestException("Не все события найдены");
         }
         return events;
