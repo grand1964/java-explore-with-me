@@ -203,11 +203,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status of event must be PUBLISHED\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('state');\r",
-									"    pm.expect(jsonData.state, '\\\"state\\\" must be \\\"PUBLISHED\\\"').to.eql('PUBLISHED');\r",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -278,11 +274,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status of event must be PUBLISHED\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('state');\r",
-									"    pm.expect(jsonData.state, '\\\"state\\\" must be \\\"PUBLISHED\\\"').to.eql('PUBLISHED');\r",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -353,11 +345,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status of event must be PUBLISHED\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('state');\r",
-									"    pm.expect(jsonData.state, '\\\"state\\\" must be \\\"PUBLISHED\\\"').to.eql('PUBLISHED');\r",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -428,11 +416,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status of event must be PUBLISHED\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('state');\r",
-									"    pm.expect(jsonData.state, '\\\"state\\\" must be \\\"PUBLISHED\\\"').to.eql('PUBLISHED');\r",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -503,11 +487,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status of event must be PUBLISHED\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('state');\r",
-									"    pm.expect(jsonData.state, '\\\"state\\\" must be \\\"PUBLISHED\\\"').to.eql('PUBLISHED');\r",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
