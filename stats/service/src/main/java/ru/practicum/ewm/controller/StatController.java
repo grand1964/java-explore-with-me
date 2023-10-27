@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.StatInDto;
 import ru.practicum.ewm.StatOutDto;
+import ru.practicum.ewm.convert.TimeConverter;
 import ru.practicum.ewm.service.StatService;
 
 import javax.validation.constraints.NotBlank;
@@ -29,6 +30,10 @@ public class StatController {
                                                     @RequestParam(defaultValue = "false") Boolean unique
     ) {
         log.info("Запрошена статистика с {} по {} ", start, end);
+        //проверка корректности дат
+        if (!TimeConverter.validateRange(start, end)) {
+            return new ResponseEntity<>(HttpStatus.valueOf(400));
+        }
         return ResponseEntity.ok(service.getStat(start, end, uris, unique));
     }
 

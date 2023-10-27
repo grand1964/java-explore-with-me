@@ -58,7 +58,7 @@ public class StatControllerTests {
 
         String[] uris = {"xxx", "yyy"};
         mvc.perform(get("/stats?start={start}&end={end}&uris={uris}&unique={unique}",
-                        "aaa", "bbb", uris, "false")
+                        "2023-10-17 00:00:00", "2023-10-18 00:00:00", uris, "false")
                         .headers(headers)
                         .characterEncoding(StandardCharsets.UTF_8)
                         .accept(MediaType.APPLICATION_JSON))
@@ -85,7 +85,7 @@ public class StatControllerTests {
 
         String[] uris = {"xxx", "yyy", "zzz"};
         mvc.perform(get("/stats?start={start}&end={end}&uris={uris}&unique={unique}",
-                        "aaa", "bbb", uris, "false")
+                        "2023-10-17 00:00:00", "2023-10-18 00:00:00", uris, "false")
                         .headers(headers)
                         .characterEncoding(StandardCharsets.UTF_8)
                         .accept(MediaType.APPLICATION_JSON))
@@ -112,14 +112,14 @@ public class StatControllerTests {
 
         String[] uris = {};
         mvc.perform(get("/stats?start={start}&end={end}&uris={uris}&unique={unique}",
-                        "aaa", "bbb", uris, "false")
+                        "2023-10-17 00:00:00", "2023-10-18 00:00:00", uris, "false")
                         .headers(headers)
                         .characterEncoding(StandardCharsets.UTF_8)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
         mvc.perform(get("/stats?start={start}&end={end}&uris=&unique={unique}",
-                        "aaa", "bbb", "false")
+                        "2023-10-17 00:00:00", "2023-10-18 00:00:00", "false")
                         .headers(headers)
                         .characterEncoding(StandardCharsets.UTF_8)
                         .accept(MediaType.APPLICATION_JSON))
@@ -135,7 +135,7 @@ public class StatControllerTests {
 
         String[] uris = {"xxx", "yyy"};
         mvc.perform(get("/stats?start={start}&end={end}&uris={uris}",
-                        "aaa", "bbb", uris)
+                        "2023-10-17 00:00:00", "2023-10-18 00:00:00", uris)
                         .headers(headers)
                         .characterEncoding(StandardCharsets.UTF_8)
                         .accept(MediaType.APPLICATION_JSON))
@@ -153,7 +153,7 @@ public class StatControllerTests {
                 .thenReturn(List.of(statOutDto));
 
         mvc.perform(get("/stats?start={start}&end={end}&unique={unique}",
-                        "aaa", "bbb", "false")
+                        "2023-10-17 00:00:00", "2023-10-18 00:00:00", "false")
                         .headers(headers)
                         .characterEncoding(StandardCharsets.UTF_8)
                         .accept(MediaType.APPLICATION_JSON))
