@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.domain.PageRequest;
 import ru.practicum.ewm.category.model.Category;
 import ru.practicum.ewm.category.storage.CategoryRepository;
-import ru.practicum.ewm.common.convert.TimeConverter;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.event.storage.EventRepository;
 import ru.practicum.ewm.rating.dto.EventWithRating;
@@ -26,7 +25,8 @@ import ru.practicum.ewm.user.storage.UserRepository;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 public class RatingJpaTests {
@@ -122,46 +122,6 @@ public class RatingJpaTests {
         assertEquals(likeRepository.countOfEventParticipationByUser(requester3.getId(), event.getId(),
                 RequestStatus.CONFIRMED), 0);
     }
-
-    /*@Test
-    public void countOfEventParticipationByUserTest() {
-        //создаем инициатора
-        User initiator = userRepository.save(userVasya);
-        //создаем в базе категорию
-        Category savedCategory = categoryRepository.save(cat1);
-        //создаем реквесторов
-        User requester1 = userRepository.save(userPetya);
-        User requester2 = userRepository.save(userFedya);
-        //создаем события
-        Event event1 = JpaTestsUtil.createEvent(initiator, savedCategory);
-        event1.setEventDate("2007-09-06 00:11:22"); //прошлое
-        eventRepository.save(event1);
-        Event event2 = JpaTestsUtil.createEvent(initiator, savedCategory);
-        event2.setEventDate("2027-09-06 00:11:22"); //будущее
-        eventRepository.save(event2);
-        //создаем заявки
-        Request request1 = JpaTestsUtil.createRequest(event1, requester1);
-        request1.setStatus(RequestStatus.PENDING); //не одобренная
-        requestRepository.save(request1);
-        Request request2 = JpaTestsUtil.createRequest(event2, requester1);
-        request2.setStatus(RequestStatus.CONFIRMED); //одобренная, но на будущее событие
-        requestRepository.save(request2);
-        Request request3 = JpaTestsUtil.createRequest(event1, requester2);
-        request3.setStatus(RequestStatus.CONFIRMED); //одобренная, на прошлое событие
-        requestRepository.save(request3);
-        Request request4 = JpaTestsUtil.createRequest(event2, requester2);
-        request4.setStatus(RequestStatus.REJECTED); //не одобренная, на будущее событие
-        requestRepository.save(request4);
-        //валидируем реквесторов
-        assertEquals(likeRepository.countOfEventParticipationByUser(requester1.getId(), event1.getId(),
-                TimeConverter.formatNow(), RequestStatus.CONFIRMED), 0);
-        assertEquals(likeRepository.countOfEventParticipationByUser(requester1.getId(), event2.getId(),
-                TimeConverter.formatNow(), RequestStatus.CONFIRMED), 0);
-        assertEquals(likeRepository.countOfEventParticipationByUser(requester2.getId(), event1.getId(),
-                TimeConverter.formatNow(), RequestStatus.CONFIRMED), 1);
-        assertEquals(likeRepository.countOfEventParticipationByUser(requester2.getId(), event2.getId(),
-                TimeConverter.formatNow(), RequestStatus.CONFIRMED), 0);
-    }*/
 
     @Test
     public void getEventsWithRatingTest() {

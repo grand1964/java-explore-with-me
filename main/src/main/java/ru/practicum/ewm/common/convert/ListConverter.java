@@ -1,5 +1,6 @@
 package ru.practicum.ewm.common.convert;
 
+import lombok.experimental.UtilityClass;
 import ru.practicum.ewm.event.dto.EventDtoMapper;
 import ru.practicum.ewm.event.dto.EventFullDtoWithRating;
 import ru.practicum.ewm.rating.dto.EventWithRating;
@@ -10,17 +11,8 @@ import ru.practicum.ewm.user.dto.UserDtoWithRating;
 import java.util.ArrayList;
 import java.util.List;
 
+@UtilityClass
 public class ListConverter {
-    /*public static List<EventFullDtoWithRating> toEventDtoList(List<PairToReturn<Event, Long>> list) {
-        List<EventFullDtoWithRating> dtoList = new ArrayList<>();
-        for (PairToReturn<Event, Long> entry : list) {
-            EventFullDtoWithRating dto = (EventFullDtoWithRating) EventDtoMapper.toEventFullDto(entry.getKey());
-            dto.setRating(entry.getValue());
-            dtoList.add(dto);
-        }
-        return dtoList;
-    }*/
-
     public static List<EventFullDtoWithRating> toEventDtoList(List<EventWithRating> list) {
         List<EventFullDtoWithRating> dtoList = new ArrayList<>();
         for (EventWithRating dto : list) {
@@ -29,16 +21,6 @@ public class ListConverter {
         }
         return dtoList;
     }
-
-    /*public static List<UserDtoWithRating> toUserDtoList(List<PairToReturn<User, Long>> list) {
-        List<UserDtoWithRating> dtoList = new ArrayList<>();
-        for (PairToReturn<User, Long> entry : list) {
-            UserDtoWithRating dto = UserDtoMapper.toUserDtoWithRating(entry.getKey());
-            dto.setRating(entry.getValue());
-            dtoList.add(dto);
-        }
-        return dtoList;
-    }*/
 
     public static List<UserDtoWithRating> toUserDtoList(List<UserWithRating> list) {
         List<UserDtoWithRating> dtoList = new ArrayList<>();

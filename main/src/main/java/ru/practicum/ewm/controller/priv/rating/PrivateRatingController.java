@@ -61,7 +61,7 @@ public class PrivateRatingController {
 
     @DeleteMapping(path = "/{userId}/event/{eventId}/likes")
     public ResponseEntity<Void> updateEventByUser(@PathVariable long userId,
-                                          @PathVariable long eventId) {
+                                                  @PathVariable long eventId) {
         log.info("Запрошено удаление новой оценки события");
         ratingService.deleteLike(userId, eventId);
         return new ResponseEntity<>(HttpStatus.valueOf(204));

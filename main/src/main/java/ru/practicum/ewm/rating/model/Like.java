@@ -43,7 +43,7 @@ public class Like {
         }
         return (this == obj) ||
                 (obj.getClass() == Like.class)
-                && ((Like) obj).getUser().equals(user)
-                && ((Like) obj).getEvent().equals(event);
+                        && ((Like) obj).getUser().equals(user)
+                        && ((Like) obj).getEvent().equals(event);
     }
 }
