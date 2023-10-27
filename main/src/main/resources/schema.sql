@@ -63,3 +63,12 @@ CREATE TABLE IF NOT EXISTS compilations_events(
     FOREIGN KEY (compilation_id) REFERENCES compilations (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (event_id) REFERENCES events (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS likes(
+    user_id BIGINT,
+    event_id BIGINT,
+    rating INTEGER,
+    PRIMARY KEY (user_id, event_id),
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (event_id) REFERENCES events (id) ON DELETE CASCADE ON UPDATE CASCADE
+);

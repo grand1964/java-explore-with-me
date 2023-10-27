@@ -1,0 +1,1667 @@
+{
+	"info": {
+		"_postman_id": "953c0b81-e1a8-444d-bc56-c4a833c6ce55",
+		"name": "feature with shift",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27171883",
+		"_collection_link": "https://winter-moon-813943.postman.co/workspace/Team-Workspace~cad7b6aa-a1d2-4419-88c5-09402187704f/collection/27171883-953c0b81-e1a8-444d-bc56-c4a833c6ce55?action=share&source=collection_link&creator=27171883"
+	},
+	"item": [
+		{
+			"name": "Initialization",
+			"item": [
+				{
+					"name": "Add first initiator",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"vasya@grand1964.com.ru\",\r\n  \"name\": \"Vasya\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add second initiator",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"petya@grand1964.com.ru\",\r\n  \"name\": \"Petya\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add requester",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"fedya@grand1964.com.ru\",\r\n  \"name\": \"Fedya\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add another requester",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"kolya@grand1964.com.ru\",\r\n  \"name\": \"Kolya\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n  \"name\": \"Category grand1964\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add first event of first initiator",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"annotation\": \"Event 1 created by first initiator - annotation\",\r\n  \"category\": 1,\r\n  \"description\": \"Event 1 created by first initiator - description\",\r\n  \"eventDate\": \"2024-12-31 15:10:05\",\r\n  \"location\": {\r\n    \"lat\": 55.754167,\r\n    \"lon\": 37.62\r\n  },\r\n  \"paid\": true,\r\n  \"participantLimit\": 0,\r\n  \"requestModeration\": false,\r\n  \"title\": \"Event1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/134/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"134",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish first event of first initiator",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status of event must be PUBLISHED\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('state');\r",
+									"    pm.expect(jsonData.state, '\\\"state\\\" must be \\\"PUBLISHED\\\"').to.eql('PUBLISHED');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"stateAction\": \"PUBLISH_EVENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/events/103",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"events",
+								"103"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add second event of first initiator",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"annotation\": \"Event 2 created by first initiator - annotation\",\r\n  \"category\": 1,\r\n  \"description\": \"Event 2 created by first initiator - description\",\r\n  \"eventDate\": \"2024-12-31 15:10:05\",\r\n  \"location\": {\r\n    \"lat\": 55.754167,\r\n    \"lon\": 37.62\r\n  },\r\n  \"paid\": true,\r\n  \"participantLimit\": 0,\r\n  \"requestModeration\": false,\r\n  \"title\": \"Event2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/134/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"134",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish second event of first initiator",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status of event must be PUBLISHED\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('state');\r",
+									"    pm.expect(jsonData.state, '\\\"state\\\" must be \\\"PUBLISHED\\\"').to.eql('PUBLISHED');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"stateAction\": \"PUBLISH_EVENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/events/104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"events",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add first event of second initiator",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"annotation\": \"Event 1 created by second initiator - annotation\",\r\n  \"category\": 1,\r\n  \"description\": \"Event 1 created by second initiator - description\",\r\n  \"eventDate\": \"2024-12-31 15:10:05\",\r\n  \"location\": {\r\n    \"lat\": 55.754167,\r\n    \"lon\": 37.62\r\n  },\r\n  \"paid\": true,\r\n  \"participantLimit\": 0,\r\n  \"requestModeration\": false,\r\n  \"title\": \"Event3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/135/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"135",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish first event of second initiator",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status of event must be PUBLISHED\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('state');\r",
+									"    pm.expect(jsonData.state, '\\\"state\\\" must be \\\"PUBLISHED\\\"').to.eql('PUBLISHED');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"stateAction\": \"PUBLISH_EVENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/events/105",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"events",
+								"105"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add second event of second initiator",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"annotation\": \"Event 2 created by second initiator - annotation\",\r\n  \"category\": 1,\r\n  \"description\": \"Event 2 created by second initiator - description\",\r\n  \"eventDate\": \"2024-12-31 15:10:05\",\r\n  \"location\": {\r\n    \"lat\": 55.754167,\r\n    \"lon\": 37.62\r\n  },\r\n  \"paid\": true,\r\n  \"participantLimit\": 0,\r\n  \"requestModeration\": false,\r\n  \"title\": \"Event4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/135/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"135",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish second event of second initiator",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status of event must be PUBLISHED\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('state');\r",
+									"    pm.expect(jsonData.state, '\\\"state\\\" must be \\\"PUBLISHED\\\"').to.eql('PUBLISHED');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"stateAction\": \"PUBLISH_EVENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/events/106",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"events",
+								"106"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add event to be confirmed",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"annotation\": \"Event 5 created by second initiator - annotation\",\r\n  \"category\": 1,\r\n  \"description\": \"Event 5 created by second initiator - description\",\r\n  \"eventDate\": \"2024-12-31 15:10:05\",\r\n  \"location\": {\r\n    \"lat\": 55.754167,\r\n    \"lon\": 37.62\r\n  },\r\n  \"paid\": true,\r\n  \"participantLimit\": 10,\r\n  \"requestModeration\": true,\r\n  \"title\": \"Event5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/135/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"135",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish event to be confirmed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status of event must be PUBLISHED\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('state');\r",
+									"    pm.expect(jsonData.state, '\\\"state\\\" must be \\\"PUBLISHED\\\"').to.eql('PUBLISHED');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"stateAction\": \"PUBLISH_EVENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/events/107",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"events",
+								"107"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add request for event 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status of request must be CONFIRMED\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\\\"status\\\" must be \\\"CONFIRMED\\\"').to.eql('CONFIRMED');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/requests?eventId=103",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "103"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add request for event 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status of request must be CONFIRMED\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\\\"status\\\" must be \\\"CONFIRMED\\\"').to.eql('CONFIRMED');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/requests?eventId=104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "104"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add request for event 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status of request must be CONFIRMED\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\\\"status\\\" must be \\\"CONFIRMED\\\"').to.eql('CONFIRMED');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/requests?eventId=105",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "105"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add request for event 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status of request must be CONFIRMED\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\\\"status\\\" must be \\\"CONFIRMED\\\"').to.eql('CONFIRMED');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/requests?eventId=106",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "106"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add another request for event 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status of request must be PENDING\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\\\"status\\\" must be \\\"PENDING\\\"').to.eql('PENDING');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/137/requests?eventId=107",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"137",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "107"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Response must have status code ok and data in json format\", function () {",
+							"\tpm.expect(pm.response.code).to.be.oneOf([200,201]);",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Likes",
+			"item": [
+				{
+					"name": "Set like from not existing user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 404\", function () {\r",
+									"\tpm.response.to.be.notFound;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/1000/event/103/likes?ratingType=like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1000",
+								"event",
+								"103",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like to not existing event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 404\", function () {\r",
+									"\tpm.response.to.be.notFound;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/event/1000/likes?ratingType=like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"event",
+								"1000",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like of bad type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 400\", function () {\r",
+									"\tpm.response.to.be.badRequest;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/event/103/likes?ratingType=NOT_SUPPORTED",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"event",
+								"103",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "NOT_SUPPORTED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like without published request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 409\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(409);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/137/event/107/likes?ratingType=like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"137",
+								"event",
+								"107",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like to event from initiator",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 409\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(409);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/134/event/103/likes?ratingType=like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"134",
+								"event",
+								"103",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set normal like to event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/event/103/likes?ratingType=like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"event",
+								"103",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Duplicate like to event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 409\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(409);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/event/103/likes?ratingType=like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"event",
+								"103",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete like from not existing user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 404\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/1000/event/103/likes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1000",
+								"event",
+								"103",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete like to not existing event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 404\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/event/1000/likes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"event",
+								"1000",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete existing like",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 204\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/event/103/likes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"event",
+								"103",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Duplicate deleting of event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 409\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(409);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/event/103/likes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"event",
+								"103",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rating",
+			"item": [
+				{
+					"name": "Set dislike to Event 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/event/103/likes?ratingType=dislike",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"event",
+								"103",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "dislike"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set dislike to Event 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/event/104/likes?ratingType=dislike",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"event",
+								"104",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "dislike"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like to Event 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/event/105/likes?ratingType=like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"event",
+								"105",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like to Event 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/136/event/106/likes?ratingType=like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"136",
+								"event",
+								"106",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get event rating with bad sorting",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 400\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/ratings?sortMode=NOT_SUPPORT",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "sortMode",
+									"value": "NOT_SUPPORT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get top events rating",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Must be code 200 and response array\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(200);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).is.an('array');\r",
+									"    pm.expect(jsonData.length).to.eql(4);\r",
+									"    pm.expect(jsonData[0]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[0].rating).to.eql(1);\r",
+									"    pm.expect(jsonData[3]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[3].rating).to.eql(-1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/ratings?sortMode=SORT_DESC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "sortMode",
+									"value": "SORT_DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get bottom events rating",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Must be code 200 and response array\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(200);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).is.an('array');\r",
+									"    pm.expect(jsonData.length).to.eql(4);\r",
+									"    pm.expect(jsonData[0]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[0].rating).to.eql(-1);\r",
+									"    pm.expect(jsonData[3]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[3].rating).to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/ratings?sortMode=SORT_ASC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "sortMode",
+									"value": "SORT_ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user rating with bad sorting",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 400\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/ratings?sortMode=NOT_SUPPORT",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "sortMode",
+									"value": "NOT_SUPPORT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get top users rating",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Must be code 200 and response array\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(200);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).is.an('array');\r",
+									"    pm.expect(jsonData.length).to.eql(2);\r",
+									"    pm.expect(jsonData[0]).to.have.property('email');\r",
+									"    pm.expect(jsonData[0].email).to.eql('petya@grand1964.com.ru');\r",
+									"    pm.expect(jsonData[0]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[0].rating).to.eql(2);\r",
+									"    pm.expect(jsonData[1]).to.have.property('email');\r",
+									"    pm.expect(jsonData[1].email).to.eql('vasya@grand1964.com.ru');\r",
+									"    pm.expect(jsonData[1]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[1].rating).to.eql(-2);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/ratings?sortMode=SORT_DESC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "sortMode",
+									"value": "SORT_DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get bottom users rating",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Must be code 200 and response array\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(200);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).is.an('array');\r",
+									"    pm.expect(jsonData.length).to.eql(2);\r",
+									"    pm.expect(jsonData[0]).to.have.property('email');\r",
+									"    pm.expect(jsonData[0].email).to.eql('vasya@grand1964.com.ru');\r",
+									"    pm.expect(jsonData[0]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[0].rating).to.eql(-2);\r",
+									"    pm.expect(jsonData[1]).to.have.property('email');\r",
+									"    pm.expect(jsonData[1].email).to.eql('petya@grand1964.com.ru');\r",
+									"    pm.expect(jsonData[1]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[1].rating).to.eql(2);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/ratings?sortMode=SORT_ASC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "sortMode",
+									"value": "SORT_ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

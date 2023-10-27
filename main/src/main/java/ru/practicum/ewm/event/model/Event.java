@@ -71,4 +71,17 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "initiator_id")
     private User initiator;
+
+    @Override
+    public int hashCode() {
+        return id.intValue();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        return (this == obj) || (obj.getClass() == Event.class) && ((Event) obj).getId().equals(id);
+    }
 }

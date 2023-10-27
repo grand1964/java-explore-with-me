@@ -128,6 +128,13 @@ public class EventDtoMapper {
         }
     }
 
+    public static EventFullDtoWithRating toEventFullDtoWithRating(Event event, long rating) {
+        EventFullDtoWithRating dto = new EventFullDtoWithRating();
+        dto.copyFromEvent(event);
+        dto.setRating(rating);
+        return dto;
+    }
+
     public static EventFullDto toEventFullDto(Event event) {
         EventFullDto dto = new EventFullDto();
         dto.copyFromEvent(event);
