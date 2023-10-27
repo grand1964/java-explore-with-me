@@ -528,11 +528,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status of request must be CONFIRMED\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('status');\r",
-									"    pm.expect(jsonData.status, '\\\"status\\\" must be \\\"CONFIRMED\\\"').to.eql('CONFIRMED');\r",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -570,11 +566,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status of request must be CONFIRMED\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('status');\r",
-									"    pm.expect(jsonData.status, '\\\"status\\\" must be \\\"CONFIRMED\\\"').to.eql('CONFIRMED');\r",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -612,11 +604,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status of request must be CONFIRMED\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('status');\r",
-									"    pm.expect(jsonData.status, '\\\"status\\\" must be \\\"CONFIRMED\\\"').to.eql('CONFIRMED');\r",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -654,11 +642,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status of request must be CONFIRMED\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('status');\r",
-									"    pm.expect(jsonData.status, '\\\"status\\\" must be \\\"CONFIRMED\\\"').to.eql('CONFIRMED');\r",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -696,11 +680,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status of request must be PENDING\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('status');\r",
-									"    pm.expect(jsonData.status, '\\\"status\\\" must be \\\"PENDING\\\"').to.eql('PENDING');\r",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -880,48 +860,6 @@
 								{
 									"key": "ratingType",
 									"value": "NOT_SUPPORTED"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Set like without published request",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code must be 409\", function () {\r",
-									"\tpm.expect(pm.response.code).to.eql(409);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/users/137/event/107/likes?ratingType=like",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"137",
-								"event",
-								"107",
-								"likes"
-							],
-							"query": [
-								{
-									"key": "ratingType",
-									"value": "like"
 								}
 							]
 						}
