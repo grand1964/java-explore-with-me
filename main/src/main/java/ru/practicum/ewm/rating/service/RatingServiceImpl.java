@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.common.convert.ListConverter;
 import ru.practicum.ewm.common.exception.ConflictException;
 import ru.practicum.ewm.common.exception.NotFoundException;
@@ -28,6 +29,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @AllArgsConstructor
+@Transactional
 public class RatingServiceImpl implements RatingService {
     private LikeRepository likeRepository;
     private UserRepository userRepository;
