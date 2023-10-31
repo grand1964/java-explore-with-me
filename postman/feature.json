@@ -1,742 +1,12 @@
 {
 	"info": {
-		"_postman_id": "953c0b81-e1a8-444d-bc56-c4a833c6ce55",
-		"name": "feature with shift",
+		"_postman_id": "41d885dc-9e58-4dee-be1f-77f0df465216",
+		"name": "feature release",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "27171883",
-		"_collection_link": "https://winter-moon-813943.postman.co/workspace/Team-Workspace~cad7b6aa-a1d2-4419-88c5-09402187704f/collection/27171883-953c0b81-e1a8-444d-bc56-c4a833c6ce55?action=share&source=collection_link&creator=27171883"
+		"_collection_link": "https://winter-moon-813943.postman.co/workspace/Team-Workspace~cad7b6aa-a1d2-4419-88c5-09402187704f/collection/27171883-41d885dc-9e58-4dee-be1f-77f0df465216?action=share&source=collection_link&creator=27171883"
 	},
 	"item": [
-		{
-			"name": "Initialization",
-			"item": [
-				{
-					"name": "Add first initiator",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"vasya@grand1964.com.ru\",\r\n  \"name\": \"Vasya\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/admin/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"admin",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add second initiator",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"petya@grand1964.com.ru\",\r\n  \"name\": \"Petya\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/admin/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"admin",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add requester",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"fedya@grand1964.com.ru\",\r\n  \"name\": \"Fedya\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/admin/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"admin",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add another requester",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"kolya@grand1964.com.ru\",\r\n  \"name\": \"Kolya\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/admin/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"admin",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add category",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{  \r\n  \"name\": \"Category grand1964\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/admin/categories",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"admin",
-								"categories"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add first event of first initiator",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"annotation\": \"Event 1 created by first initiator - annotation\",\r\n  \"category\": 1,\r\n  \"description\": \"Event 1 created by first initiator - description\",\r\n  \"eventDate\": \"2024-12-31 15:10:05\",\r\n  \"location\": {\r\n    \"lat\": 55.754167,\r\n    \"lon\": 37.62\r\n  },\r\n  \"paid\": true,\r\n  \"participantLimit\": 0,\r\n  \"requestModeration\": false,\r\n  \"title\": \"Event1\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/users/134/events",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"134",
-								"events"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Publish first event of first initiator",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"stateAction\": \"PUBLISH_EVENT\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/admin/events/103",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"admin",
-								"events",
-								"103"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add second event of first initiator",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"annotation\": \"Event 2 created by first initiator - annotation\",\r\n  \"category\": 1,\r\n  \"description\": \"Event 2 created by first initiator - description\",\r\n  \"eventDate\": \"2024-12-31 15:10:05\",\r\n  \"location\": {\r\n    \"lat\": 55.754167,\r\n    \"lon\": 37.62\r\n  },\r\n  \"paid\": true,\r\n  \"participantLimit\": 0,\r\n  \"requestModeration\": false,\r\n  \"title\": \"Event2\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/users/134/events",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"134",
-								"events"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Publish second event of first initiator",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"stateAction\": \"PUBLISH_EVENT\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/admin/events/104",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"admin",
-								"events",
-								"104"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add first event of second initiator",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"annotation\": \"Event 1 created by second initiator - annotation\",\r\n  \"category\": 1,\r\n  \"description\": \"Event 1 created by second initiator - description\",\r\n  \"eventDate\": \"2024-12-31 15:10:05\",\r\n  \"location\": {\r\n    \"lat\": 55.754167,\r\n    \"lon\": 37.62\r\n  },\r\n  \"paid\": true,\r\n  \"participantLimit\": 0,\r\n  \"requestModeration\": false,\r\n  \"title\": \"Event3\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/users/135/events",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"135",
-								"events"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Publish first event of second initiator",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"stateAction\": \"PUBLISH_EVENT\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/admin/events/105",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"admin",
-								"events",
-								"105"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add second event of second initiator",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"annotation\": \"Event 2 created by second initiator - annotation\",\r\n  \"category\": 1,\r\n  \"description\": \"Event 2 created by second initiator - description\",\r\n  \"eventDate\": \"2024-12-31 15:10:05\",\r\n  \"location\": {\r\n    \"lat\": 55.754167,\r\n    \"lon\": 37.62\r\n  },\r\n  \"paid\": true,\r\n  \"participantLimit\": 0,\r\n  \"requestModeration\": false,\r\n  \"title\": \"Event4\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/users/135/events",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"135",
-								"events"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Publish second event of second initiator",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"stateAction\": \"PUBLISH_EVENT\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/admin/events/106",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"admin",
-								"events",
-								"106"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add event to be confirmed",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"annotation\": \"Event 5 created by second initiator - annotation\",\r\n  \"category\": 1,\r\n  \"description\": \"Event 5 created by second initiator - description\",\r\n  \"eventDate\": \"2024-12-31 15:10:05\",\r\n  \"location\": {\r\n    \"lat\": 55.754167,\r\n    \"lon\": 37.62\r\n  },\r\n  \"paid\": true,\r\n  \"participantLimit\": 10,\r\n  \"requestModeration\": true,\r\n  \"title\": \"Event5\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/users/135/events",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"135",
-								"events"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Publish event to be confirmed",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"stateAction\": \"PUBLISH_EVENT\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/admin/events/107",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"admin",
-								"events",
-								"107"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add request for event 1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/users/136/requests?eventId=103",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"136",
-								"requests"
-							],
-							"query": [
-								{
-									"key": "eventId",
-									"value": "103"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add request for event 2",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/users/136/requests?eventId=104",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"136",
-								"requests"
-							],
-							"query": [
-								{
-									"key": "eventId",
-									"value": "104"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add request for event 3",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/users/136/requests?eventId=105",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"136",
-								"requests"
-							],
-							"query": [
-								{
-									"key": "eventId",
-									"value": "105"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add request for event 4",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/users/136/requests?eventId=106",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"136",
-								"requests"
-							],
-							"query": [
-								{
-									"key": "eventId",
-									"value": "106"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add another request for event 1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/users/137/requests?eventId=107",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"137",
-								"requests"
-							],
-							"query": [
-								{
-									"key": "eventId",
-									"value": "107"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Response must have status code ok and data in json format\", function () {",
-							"\tpm.expect(pm.response.code).to.be.oneOf([200,201]);",
-							"    pm.response.to.be.withBody;",
-							"    pm.response.to.be.json;",
-							"});"
-						]
-					}
-				}
-			]
-		},
 		{
 			"name": "Likes",
 			"item": [
@@ -753,29 +23,72 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        const initiator = await api.addUser(init.getUser('Vasya', 'vasya@grand1964.com.ru'));\r",
+									"        pm.collectionVariables.set(\"init1Id\", initiator.id);            \r",
+									"        const category = await api.addCategory(init.getCategory());        \r",
+									"        pm.collectionVariables.set(\"catId\", category.id);\r",
+									"        const event = await api.addEvent(initiator.id, init.getEvent(category.id, 0, false, 1));        \r",
+									"        pm.collectionVariables.set(\"event1Id\", event.id);\r",
+									"        await api.publishEvent(event.id);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/1000/event/103/likes?ratingType=like",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/1000/event/:eventId/likes?ratingType=like",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
 								"1000",
 								"event",
-								"103",
+								":eventId",
 								"likes"
 							],
 							"query": [
 								{
 									"key": "ratingType",
 									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
 								}
 							]
 						}
@@ -795,21 +108,53 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        const user = await api.addUser(init.getUser('Fedya', 'fedya@grand1964.com.ru'));\r",
+									"        pm.collectionVariables.set(\"user1Id\", user.id);     \r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/136/event/1000/likes?ratingType=like",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/:userId/event/1000/likes?ratingType=like",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
-								"136",
+								":userId",
 								"event",
 								"1000",
 								"likes"
@@ -818,6 +163,105 @@
 								{
 									"key": "ratingType",
 									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like from not confirmed requester",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 409\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(409);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        //читаем id инициатора\r",
+									"        var initiatorId = pm.collectionVariables.get(\"init1Id\");\r",
+									"        //читаем id реквестора\r",
+									"        var requesterId = pm.collectionVariables.get(\"user1Id\");\r",
+									"        //создаем и публикуем событие\r",
+									"        const event = await api.addEvent(initiatorId, \r",
+									"            init.getEvent(pm.collectionVariables.get(\"catId\"), 10, true, 5));        \r",
+									"        await api.publishEvent(event.id);\r",
+									"        pm.collectionVariables.set(\"event5Id\", event.id);\r",
+									"        //создаем запрос типа PENDING (без автоматического подтверждения)\r",
+									"        await api.publishParticipationRequest(event.id, requesterId);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=like",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event5Id}}"
 								}
 							]
 						}
@@ -837,45 +281,41 @@
 								],
 								"type": "text/javascript"
 							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/users/136/event/103/likes?ratingType=NOT_SUPPORTED",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"136",
-								"event",
-								"103",
-								"likes"
-							],
-							"query": [
-								{
-									"key": "ratingType",
-									"value": "NOT_SUPPORTED"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Set like to event from initiator",
-					"event": [
+						},
 						{
-							"listen": "test",
+							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code must be 409\", function () {\r",
-									"\tpm.expect(pm.response.code).to.eql(409);\r",
-									"});"
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        //читаем id реквестора\r",
+									"        var requesterId = pm.collectionVariables.get(\"user1Id\");\r",
+									"        //читаем id события\r",
+									"        var eventId = pm.collectionVariables.get(\"event1Id\");\r",
+									"        //создаем подтвержденную заявку\r",
+									"        await api.publishParticipationRequest(eventId, requesterId);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
 								],
 								"type": "text/javascript"
 							}
@@ -885,23 +325,31 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/134/event/103/likes?ratingType=like",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=NOT_SUPPORTED",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
-								"134",
+								":userId",
 								"event",
-								"103",
+								":eventId",
 								"likes"
 							],
 							"query": [
 								{
 									"key": "ratingType",
-									"value": "like"
+									"value": "NOT_SUPPORTED"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
 								}
 							]
 						}
@@ -921,29 +369,46 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/136/event/103/likes?ratingType=like",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=like",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
-								"136",
+								":userId",
 								"event",
-								"103",
+								":eventId",
 								"likes"
 							],
 							"query": [
 								{
 									"key": "ratingType",
 									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
 								}
 							]
 						}
@@ -963,29 +428,46 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/136/event/103/likes?ratingType=like",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=like",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
-								"136",
+								":userId",
 								"event",
-								"103",
+								":eventId",
 								"likes"
 							],
 							"query": [
 								{
 									"key": "ratingType",
 									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
 								}
 							]
 						}
@@ -1005,24 +487,41 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/1000/event/103/likes",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
-								"1000",
+								":userId",
 								"event",
-								"103",
+								":eventId",
 								"likes"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1000"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
+								}
 							]
 						}
 					},
@@ -1041,24 +540,41 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/136/event/1000/likes",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
-								"136",
+								":userId",
 								"event",
-								"1000",
+								":eventId",
 								"likes"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "1000"
+								}
 							]
 						}
 					},
@@ -1077,24 +593,41 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/136/event/103/likes",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
-								"136",
+								":userId",
 								"event",
-								"103",
+								":eventId",
 								"likes"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
+								}
 							]
 						}
 					},
@@ -1113,24 +646,41 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/136/event/103/likes",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
-								"136",
+								":userId",
 								"event",
-								"103",
+								":eventId",
 								"likes"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
+								}
 							]
 						}
 					},
@@ -1142,7 +692,7 @@
 			"name": "Rating",
 			"item": [
 				{
-					"name": "Set dislike to Event 1",
+					"name": "Set dislike from user1 to event1",
 					"event": [
 						{
 							"listen": "test",
@@ -1160,17 +710,15 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/136/event/103/likes?ratingType=dislike",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=dislike",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
-								"136",
+								":userId",
 								"event",
-								"103",
+								":eventId",
 								"likes"
 							],
 							"query": [
@@ -1178,13 +726,23 @@
 									"key": "ratingType",
 									"value": "dislike"
 								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Set dislike to Event 2",
+					"name": "Set like from user2 to event1",
 					"event": [
 						{
 							"listen": "test",
@@ -1196,23 +754,153 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        //создаем второго реквестора\r",
+									"        const user = await api.addUser(init.getUser('Kolya', 'kolya@grand1964.com.ru'));\r",
+									"        pm.collectionVariables.set(\"user2Id\", user.id);     \r",
+									"        //читаем событие 2\r",
+									"        var eventId = pm.collectionVariables.get(\"event1Id\"); \r",
+									"        //создаем подтвержденную заявку на это событие\r",
+									"        await api.publishParticipationRequest(eventId, user.id);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/136/event/104/likes?ratingType=dislike",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=like",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
-								"136",
+								":userId",
 								"event",
-								"104",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user2Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set dislike from user1 to event2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        //задаем инициатора и категорию\r",
+									"        var initiatorId = pm.collectionVariables.get(\"init1Id\"); \r",
+									"        var categoryId = pm.collectionVariables.get(\"catId\"); \r",
+									"        //создаем и публикуем событие 2\r",
+									"        const event = await api.addEvent(initiatorId, init.getEvent(categoryId, 0, false, 2));        \r",
+									"        pm.collectionVariables.set(\"event2Id\", event.id);\r",
+									"        await api.publishEvent(event.id);\r",
+									"        //задаем реквестора\r",
+									"        var requesterId = pm.collectionVariables.get(\"user1Id\"); \r",
+									"        //создаем подтвержденную заявку на это событие\r",
+									"        await api.publishParticipationRequest(event.id, requesterId);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=dislike",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
 								"likes"
 							],
 							"query": [
@@ -1220,47 +908,15 @@
 									"key": "ratingType",
 									"value": "dislike"
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Set like to Event 3",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code must be 201\", function () {\r",
-									"\tpm.expect(pm.response.code).to.eql(201);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/users/136/event/105/likes?ratingType=like",
-							"protocol": "http",
-							"host": [
-								"localhost"
 							],
-							"port": "8080",
-							"path": [
-								"users",
-								"136",
-								"event",
-								"105",
-								"likes"
-							],
-							"query": [
+							"variable": [
 								{
-									"key": "ratingType",
-									"value": "like"
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event2Id}}"
 								}
 							]
 						}
@@ -1268,7 +924,7 @@
 					"response": []
 				},
 				{
-					"name": "Set like to Event 4",
+					"name": "Set like from user1 to event3",
 					"event": [
 						{
 							"listen": "test",
@@ -1280,29 +936,263 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        //создаем второго инициатора\r",
+									"        const initiator = await api.addUser(init.getUser('Petya', 'petya@grand1964.com.ru'));\r",
+									"        pm.collectionVariables.set(\"init2Id\", initiator.id);            \r",
+									"        //задаем инициатора и категорию\r",
+									"        var categoryId = pm.collectionVariables.get(\"catId\"); \r",
+									"        //создаем и публикуем событие 3\r",
+									"        const event = await api.addEvent(initiator.id, init.getEvent(categoryId, 0, false, 3));        \r",
+									"        pm.collectionVariables.set(\"event3Id\", event.id);\r",
+									"        await api.publishEvent(event.id);\r",
+									"        //задаем реквестора\r",
+									"        var requesterId = pm.collectionVariables.get(\"user1Id\"); \r",
+									"        //создаем подтвержденную заявку на это событие\r",
+									"        await api.publishParticipationRequest(event.id, requesterId);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/136/event/106/likes?ratingType=like",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=like",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
-								"136",
+								":userId",
 								"event",
-								"106",
+								":eventId",
 								"likes"
 							],
 							"query": [
 								{
 									"key": "ratingType",
 									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event3Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like from user2 to event3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        //задаем реквестора\r",
+									"        var requesterId = pm.collectionVariables.get(\"user2Id\"); \r",
+									"        //задаем событие\r",
+									"        var eventId = pm.collectionVariables.get(\"event3Id\"); \r",
+									"        //создаем подтвержденную заявку на это событие\r",
+									"        await api.publishParticipationRequest(eventId, requesterId);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=like",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user2Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event3Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like from user1 to event4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        //задаем инициатора и категорию\r",
+									"        var initiatorId = pm.collectionVariables.get(\"init2Id\"); \r",
+									"        var categoryId = pm.collectionVariables.get(\"catId\"); \r",
+									"        //создаем и публикуем событие 3\r",
+									"        const event = await api.addEvent(initiatorId, init.getEvent(categoryId, 0, false, 4));        \r",
+									"        pm.collectionVariables.set(\"event4Id\", event.id);\r",
+									"        await api.publishEvent(event.id);\r",
+									"        //задаем реквестора\r",
+									"        var requesterId = pm.collectionVariables.get(\"user1Id\"); \r",
+									"        //создаем подтвержденную заявку на это событие\r",
+									"        await api.publishParticipationRequest(event.id, requesterId);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=like",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event4Id}}"
 								}
 							]
 						}
@@ -1328,12 +1218,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/admin/ratings?sortMode=NOT_SUPPORT",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/admin/ratings?sortMode=NOT_SUPPORT",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"admin",
 								"ratings"
@@ -1359,11 +1247,23 @@
 									"\tpm.expect(pm.response.code).to.eql(200);\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).is.an('array');\r",
-									"    pm.expect(jsonData.length).to.eql(4);\r",
+									"    pm.expect(jsonData.length).to.eql(4);    \r",
 									"    pm.expect(jsonData[0]).to.have.property('rating');\r",
-									"    pm.expect(jsonData[0].rating).to.eql(1);\r",
+									"    pm.expect(jsonData[0]).to.have.property('title');\r",
+									"    pm.expect(jsonData[0].rating).to.eql(2);\r",
+									"    pm.expect(jsonData[0].title).to.eql('Event3');\r",
+									"    pm.expect(jsonData[1]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[1]).to.have.property('title');\r",
+									"    pm.expect(jsonData[1].rating).to.eql(1);\r",
+									"    pm.expect(jsonData[1].title).to.eql('Event4');\r",
+									"    pm.expect(jsonData[2]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[2]).to.have.property('title');\r",
+									"    pm.expect(jsonData[2].rating).to.eql(0);\r",
+									"    pm.expect(jsonData[2].title).to.eql('Event1');\r",
 									"    pm.expect(jsonData[3]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[3]).to.have.property('title');\r",
 									"    pm.expect(jsonData[3].rating).to.eql(-1);\r",
+									"    pm.expect(jsonData[3].title).to.eql('Event2');\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1374,12 +1274,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/admin/ratings?sortMode=SORT_DESC",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/admin/ratings?sortMode=SORT_DESC",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"admin",
 								"ratings"
@@ -1405,11 +1303,23 @@
 									"\tpm.expect(pm.response.code).to.eql(200);\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).is.an('array');\r",
-									"    pm.expect(jsonData.length).to.eql(4);\r",
+									"    pm.expect(jsonData.length).to.eql(4);    \r",
 									"    pm.expect(jsonData[0]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[0]).to.have.property('title');\r",
 									"    pm.expect(jsonData[0].rating).to.eql(-1);\r",
+									"    pm.expect(jsonData[0].title).to.eql('Event2');\r",
+									"    pm.expect(jsonData[1]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[1]).to.have.property('title');\r",
+									"    pm.expect(jsonData[1].rating).to.eql(0);\r",
+									"    pm.expect(jsonData[1].title).to.eql('Event1');\r",
+									"    pm.expect(jsonData[2]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[2]).to.have.property('title');\r",
+									"    pm.expect(jsonData[2].rating).to.eql(1);\r",
+									"    pm.expect(jsonData[2].title).to.eql('Event4');\r",
 									"    pm.expect(jsonData[3]).to.have.property('rating');\r",
-									"    pm.expect(jsonData[3].rating).to.eql(1);\r",
+									"    pm.expect(jsonData[3]).to.have.property('title');\r",
+									"    pm.expect(jsonData[3].rating).to.eql(2);\r",
+									"    pm.expect(jsonData[3].title).to.eql('Event3');    \r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1420,12 +1330,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/admin/ratings?sortMode=SORT_ASC",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/admin/ratings?sortMode=SORT_ASC",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"admin",
 								"ratings"
@@ -1459,12 +1367,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/ratings?sortMode=NOT_SUPPORT",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/ratings?sortMode=NOT_SUPPORT",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
 								"ratings"
@@ -1494,11 +1400,11 @@
 									"    pm.expect(jsonData[0]).to.have.property('email');\r",
 									"    pm.expect(jsonData[0].email).to.eql('petya@grand1964.com.ru');\r",
 									"    pm.expect(jsonData[0]).to.have.property('rating');\r",
-									"    pm.expect(jsonData[0].rating).to.eql(2);\r",
+									"    pm.expect(jsonData[0].rating).to.eql(3);\r",
 									"    pm.expect(jsonData[1]).to.have.property('email');\r",
 									"    pm.expect(jsonData[1].email).to.eql('vasya@grand1964.com.ru');\r",
 									"    pm.expect(jsonData[1]).to.have.property('rating');\r",
-									"    pm.expect(jsonData[1].rating).to.eql(-2);\r",
+									"    pm.expect(jsonData[1].rating).to.eql(-1);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1509,12 +1415,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/ratings?sortMode=SORT_DESC",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/ratings?sortMode=SORT_DESC",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
 								"ratings"
@@ -1542,13 +1446,13 @@
 									"    pm.expect(jsonData).is.an('array');\r",
 									"    pm.expect(jsonData.length).to.eql(2);\r",
 									"    pm.expect(jsonData[0]).to.have.property('email');\r",
-									"    pm.expect(jsonData[0].email).to.eql('vasya@grand1964.com.ru');\r",
+									"    pm.expect(jsonData[0].email).to.eql('vasya@grand1964.com.ru');    \r",
 									"    pm.expect(jsonData[0]).to.have.property('rating');\r",
-									"    pm.expect(jsonData[0].rating).to.eql(-2);\r",
+									"    pm.expect(jsonData[0].rating).to.eql(-1);\r",
 									"    pm.expect(jsonData[1]).to.have.property('email');\r",
 									"    pm.expect(jsonData[1].email).to.eql('petya@grand1964.com.ru');\r",
 									"    pm.expect(jsonData[1]).to.have.property('rating');\r",
-									"    pm.expect(jsonData[1].rating).to.eql(2);\r",
+									"    pm.expect(jsonData[1].rating).to.eql(3);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1559,12 +1463,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/ratings?sortMode=SORT_ASC",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/users/ratings?sortMode=SORT_ASC",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"users",
 								"ratings"
@@ -1580,6 +1482,204 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"API = class {",
+					"    constructor(postman, verbose = false, baseUrl = \"http://localhost:8080\") {",
+					"        this.baseUrl = baseUrl;",
+					"        this.pm = postman;",
+					"        this._verbose = verbose;",
+					"    }",
+					"",
+					"    async addUser(user, verbose=null) {",
+					"        return this.post(\"/admin/users\", user, \"Ошибка при добавлении нового пользователя: \", verbose);",
+					"    }",
+					"",
+					"    async addCategory(category, verbose=null) {",
+					"        return this.post(\"/admin/categories\", category, \"Ошибка при добавлении новой категории: \", verbose);",
+					"    }",
+					"",
+					"    async addEvent(userId, event, verbose=null) {",
+					"        return this.post(\"/users/\" + userId + \"/events\", event, \"Ошибка при добавлении нового события: \", verbose);",
+					"    }",
+					"",
+					"    async publishParticipationRequest(eventId, userId, verbose=null) {",
+					"        return this.post('/users/' + userId + '/requests?eventId=' + eventId, null, \"Ошибка при добавлении нового запроса на участие в событии\", verbose);",
+					"    }",
+					"",
+					"    async publishEvent(eventId, verbose=null) {",
+					"        return this.patch('/admin/events/' + eventId, {stateAction: \"PUBLISH_EVENT\"}, \"Ошибка при публикации события\", verbose);",
+					"    }",
+					"    ",
+					"    async acceptParticipationRequest(eventId, userId, reqId, verbose=null) {",
+					"        return this.patch('/users/' + userId + '/events/' + eventId + '/requests/', {requestIds:[reqId], status: \"CONFIRMED\"}, \"Ошибка при принятии заявки на участие в событии\", verbose);",
+					"    }",
+					"",
+					"    async addLike(userId, eventId, likeParam, verbose=null) {",
+					"        return this.post('/users/' + userId + '/event/' + eventId + '/likes?likeType=' + likeParam, null, \"Ошибка при принятии заявки на участие в событии\", verbose);",
+					"    }",
+					"",
+					"    async post(path, body, errorText = \"Ошибка при выполнении post-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"POST\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async patch(path, body = null, errorText = \"Ошибка при выполнении patch-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"PATCH\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async get(path, body = null, errorText = \"Ошибка при выполнении get-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"GET\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async sendRequest(method, path, body=null, errorText = \"Ошибка при выполнении запроса: \", verbose=null) {",
+					"        return new Promise((resolve, reject) => {",
+					"            verbose = verbose == null ? this._verbose : verbose;",
+					"",
+					"            const request = {",
+					"                url: this.baseUrl + path,",
+					"                method: method,",
+					"                body: body == null ? \"\" : JSON.stringify(body),",
+					"                header: { \"Content-Type\": \"application/json\" },",
+					"            };",
+					"",
+					"            if(verbose) {",
+					"                console.log(\"Отправляю запрос: \", request);",
+					"            }",
+					"",
+					"            try {",
+					"                this.pm.sendRequest(request, (error, response) => {",
+					"                    if(error || (response.code >= 400 && response.code <= 599)) {",
+					"                        let err = error ? error : JSON.stringify(response.json());",
+					"                        console.error(\"При выполнении запроса к серверу возникла ошика.\\n\", err,",
+					"                             \"\\nДля отладки проблемы повторите такой же запрос к вашей программе \" + ",
+					"                             \"на локальном компьютере. Данные запроса:\\n\", JSON.stringify(request));",
+					"",
+					"                        reject(new Error(errorText + err));",
+					"                    }",
+					"",
+					"                    if(verbose) {",
+					"                        console.log(\"Результат обработки запроса: код состояния - \", response.code, \", тело: \", response.json());",
+					"                    }",
+					"",
+					"                    resolve(response.json());",
+					"                });",
+					"            } catch(err) {",
+					"                if(verbose) {",
+					"                    console.error(errorText, err);",
+					"                }",
+					"                return Promise.reject(err);",
+					"            }",
+					"        });",
+					"    }",
+					"};",
+					"",
+					"InitUtils = class {",
+					"    constructor() {}",
+					"",
+					"    getUser(userName, userEmail) {        ",
+					"        return {",
+					"            name: pm.variables.replaceIn(userName),",
+					"            email: pm.variables.replaceIn(userEmail)",
+					"        };",
+					"    }",
+					"",
+					"    getCategory() {",
+					"        return {",
+					"            name: pm.variables.replaceIn('Category grand1964')",
+					"        };",
+					"    }",
+					"",
+					"    getEvent(categoryId, limit, moderation, number) {",
+					"        return {",
+					"            annotation: pm.variables.replaceIn('Event created by initiator - annotation'),",
+					"            category: categoryId,",
+					"            description: pm.variables.replaceIn('Event created by initiator - description'),",
+					"            eventDate: pm.variables.replaceIn('2024-12-31 15:10:05'),",
+					"            location: {",
+					"                lat: parseFloat(pm.variables.replaceIn(55.754167)),",
+					"                lon: parseFloat(pm.variables.replaceIn(37.62)),",
+					"            },",
+					"            paid: pm.variables.replaceIn(true),",
+					"            participantLimit: pm.variables.replaceIn(limit),",
+					"            requestModeration: pm.variables.replaceIn(moderation),",
+					"            title: pm.variables.replaceIn('Event' + number.toString())",
+					"        }",
+					"    }    ",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "catId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "init1Id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "init2Id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "user1Id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "user2Id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "event1Id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "event2Id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "event3Id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "event4Id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "event5Id",
+			"value": "",
+			"type": "string"
 		}
 	]
 }
