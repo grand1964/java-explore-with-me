@@ -10,6 +10,10 @@ public class UserDtoMapper {
         return new User(null, userRequest.getName(), userRequest.getEmail());
     }
 
+    public static UserDtoWithRating toUserDtoWithRating(User user) {
+        return new UserDtoWithRating(user.getEmail(), user.getName(), 0L);
+    }
+
     public static UserDto toUserDto(User user) {
         return new UserDto(user.getEmail(), user.getId(), user.getName());
     }

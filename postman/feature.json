@@ -1,0 +1,1685 @@
+{
+	"info": {
+		"_postman_id": "41d885dc-9e58-4dee-be1f-77f0df465216",
+		"name": "feature release",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27171883",
+		"_collection_link": "https://winter-moon-813943.postman.co/workspace/Team-Workspace~cad7b6aa-a1d2-4419-88c5-09402187704f/collection/27171883-41d885dc-9e58-4dee-be1f-77f0df465216?action=share&source=collection_link&creator=27171883"
+	},
+	"item": [
+		{
+			"name": "Likes",
+			"item": [
+				{
+					"name": "Set like from not existing user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 404\", function () {\r",
+									"\tpm.response.to.be.notFound;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        const initiator = await api.addUser(init.getUser('Vasya', 'vasya@grand1964.com.ru'));\r",
+									"        pm.collectionVariables.set(\"init1Id\", initiator.id);            \r",
+									"        const category = await api.addCategory(init.getCategory());        \r",
+									"        pm.collectionVariables.set(\"catId\", category.id);\r",
+									"        const event = await api.addEvent(initiator.id, init.getEvent(category.id, 0, false, 1));        \r",
+									"        pm.collectionVariables.set(\"event1Id\", event.id);\r",
+									"        await api.publishEvent(event.id);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/1000/event/:eventId/likes?ratingType=like",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"1000",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like to not existing event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 404\", function () {\r",
+									"\tpm.response.to.be.notFound;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        const user = await api.addUser(init.getUser('Fedya', 'fedya@grand1964.com.ru'));\r",
+									"        pm.collectionVariables.set(\"user1Id\", user.id);     \r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/1000/likes?ratingType=like",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								"1000",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like from not confirmed requester",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 409\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(409);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        //читаем id инициатора\r",
+									"        var initiatorId = pm.collectionVariables.get(\"init1Id\");\r",
+									"        //читаем id реквестора\r",
+									"        var requesterId = pm.collectionVariables.get(\"user1Id\");\r",
+									"        //создаем и публикуем событие\r",
+									"        const event = await api.addEvent(initiatorId, \r",
+									"            init.getEvent(pm.collectionVariables.get(\"catId\"), 10, true, 5));        \r",
+									"        await api.publishEvent(event.id);\r",
+									"        pm.collectionVariables.set(\"event5Id\", event.id);\r",
+									"        //создаем запрос типа PENDING (без автоматического подтверждения)\r",
+									"        await api.publishParticipationRequest(event.id, requesterId);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=like",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event5Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like of bad type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 400\", function () {\r",
+									"\tpm.response.to.be.badRequest;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        //читаем id реквестора\r",
+									"        var requesterId = pm.collectionVariables.get(\"user1Id\");\r",
+									"        //читаем id события\r",
+									"        var eventId = pm.collectionVariables.get(\"event1Id\");\r",
+									"        //создаем подтвержденную заявку\r",
+									"        await api.publishParticipationRequest(eventId, requesterId);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=NOT_SUPPORTED",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "NOT_SUPPORTED"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set normal like to event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=like",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Duplicate like to event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 409\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(409);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=like",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete like from not existing user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 404\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1000"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete like to not existing event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 404\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "1000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete existing like",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 204\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Duplicate deleting of event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 409\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(409);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rating",
+			"item": [
+				{
+					"name": "Set dislike from user1 to event1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=dislike",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "dislike"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like from user2 to event1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        //создаем второго реквестора\r",
+									"        const user = await api.addUser(init.getUser('Kolya', 'kolya@grand1964.com.ru'));\r",
+									"        pm.collectionVariables.set(\"user2Id\", user.id);     \r",
+									"        //читаем событие 2\r",
+									"        var eventId = pm.collectionVariables.get(\"event1Id\"); \r",
+									"        //создаем подтвержденную заявку на это событие\r",
+									"        await api.publishParticipationRequest(eventId, user.id);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=like",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user2Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event1Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set dislike from user1 to event2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        //задаем инициатора и категорию\r",
+									"        var initiatorId = pm.collectionVariables.get(\"init1Id\"); \r",
+									"        var categoryId = pm.collectionVariables.get(\"catId\"); \r",
+									"        //создаем и публикуем событие 2\r",
+									"        const event = await api.addEvent(initiatorId, init.getEvent(categoryId, 0, false, 2));        \r",
+									"        pm.collectionVariables.set(\"event2Id\", event.id);\r",
+									"        await api.publishEvent(event.id);\r",
+									"        //задаем реквестора\r",
+									"        var requesterId = pm.collectionVariables.get(\"user1Id\"); \r",
+									"        //создаем подтвержденную заявку на это событие\r",
+									"        await api.publishParticipationRequest(event.id, requesterId);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=dislike",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "dislike"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event2Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like from user1 to event3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        //создаем второго инициатора\r",
+									"        const initiator = await api.addUser(init.getUser('Petya', 'petya@grand1964.com.ru'));\r",
+									"        pm.collectionVariables.set(\"init2Id\", initiator.id);            \r",
+									"        //задаем инициатора и категорию\r",
+									"        var categoryId = pm.collectionVariables.get(\"catId\"); \r",
+									"        //создаем и публикуем событие 3\r",
+									"        const event = await api.addEvent(initiator.id, init.getEvent(categoryId, 0, false, 3));        \r",
+									"        pm.collectionVariables.set(\"event3Id\", event.id);\r",
+									"        await api.publishEvent(event.id);\r",
+									"        //задаем реквестора\r",
+									"        var requesterId = pm.collectionVariables.get(\"user1Id\"); \r",
+									"        //создаем подтвержденную заявку на это событие\r",
+									"        await api.publishParticipationRequest(event.id, requesterId);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=like",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event3Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like from user2 to event3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        //задаем реквестора\r",
+									"        var requesterId = pm.collectionVariables.get(\"user2Id\"); \r",
+									"        //задаем событие\r",
+									"        var eventId = pm.collectionVariables.get(\"event3Id\"); \r",
+									"        //создаем подтвержденную заявку на это событие\r",
+									"        await api.publishParticipationRequest(eventId, requesterId);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=like",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user2Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event3Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set like from user1 to event4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const init = new InitUtils();\r",
+									"    \r",
+									"    try {   \r",
+									"        //задаем инициатора и категорию\r",
+									"        var initiatorId = pm.collectionVariables.get(\"init2Id\"); \r",
+									"        var categoryId = pm.collectionVariables.get(\"catId\"); \r",
+									"        //создаем и публикуем событие 3\r",
+									"        const event = await api.addEvent(initiatorId, init.getEvent(categoryId, 0, false, 4));        \r",
+									"        pm.collectionVariables.set(\"event4Id\", event.id);\r",
+									"        await api.publishEvent(event.id);\r",
+									"        //задаем реквестора\r",
+									"        var requesterId = pm.collectionVariables.get(\"user1Id\"); \r",
+									"        //создаем подтвержденную заявку на это событие\r",
+									"        await api.publishParticipationRequest(event.id, requesterId);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/event/:eventId/likes?ratingType=like",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"event",
+								":eventId",
+								"likes"
+							],
+							"query": [
+								{
+									"key": "ratingType",
+									"value": "like"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1Id}}"
+								},
+								{
+									"key": "eventId",
+									"value": "{{event4Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get event rating with bad sorting",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 400\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/ratings?sortMode=NOT_SUPPORT",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "sortMode",
+									"value": "NOT_SUPPORT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get top events rating",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Must be code 200 and response array\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(200);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).is.an('array');\r",
+									"    pm.expect(jsonData.length).to.eql(4);    \r",
+									"    pm.expect(jsonData[0]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[0]).to.have.property('title');\r",
+									"    pm.expect(jsonData[0].rating).to.eql(2);\r",
+									"    pm.expect(jsonData[0].title).to.eql('Event3');\r",
+									"    pm.expect(jsonData[1]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[1]).to.have.property('title');\r",
+									"    pm.expect(jsonData[1].rating).to.eql(1);\r",
+									"    pm.expect(jsonData[1].title).to.eql('Event4');\r",
+									"    pm.expect(jsonData[2]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[2]).to.have.property('title');\r",
+									"    pm.expect(jsonData[2].rating).to.eql(0);\r",
+									"    pm.expect(jsonData[2].title).to.eql('Event1');\r",
+									"    pm.expect(jsonData[3]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[3]).to.have.property('title');\r",
+									"    pm.expect(jsonData[3].rating).to.eql(-1);\r",
+									"    pm.expect(jsonData[3].title).to.eql('Event2');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/ratings?sortMode=SORT_DESC",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "sortMode",
+									"value": "SORT_DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get bottom events rating",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Must be code 200 and response array\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(200);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).is.an('array');\r",
+									"    pm.expect(jsonData.length).to.eql(4);    \r",
+									"    pm.expect(jsonData[0]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[0]).to.have.property('title');\r",
+									"    pm.expect(jsonData[0].rating).to.eql(-1);\r",
+									"    pm.expect(jsonData[0].title).to.eql('Event2');\r",
+									"    pm.expect(jsonData[1]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[1]).to.have.property('title');\r",
+									"    pm.expect(jsonData[1].rating).to.eql(0);\r",
+									"    pm.expect(jsonData[1].title).to.eql('Event1');\r",
+									"    pm.expect(jsonData[2]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[2]).to.have.property('title');\r",
+									"    pm.expect(jsonData[2].rating).to.eql(1);\r",
+									"    pm.expect(jsonData[2].title).to.eql('Event4');\r",
+									"    pm.expect(jsonData[3]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[3]).to.have.property('title');\r",
+									"    pm.expect(jsonData[3].rating).to.eql(2);\r",
+									"    pm.expect(jsonData[3].title).to.eql('Event3');    \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admin/ratings?sortMode=SORT_ASC",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "sortMode",
+									"value": "SORT_ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user rating with bad sorting",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code must be 400\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/ratings?sortMode=NOT_SUPPORT",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "sortMode",
+									"value": "NOT_SUPPORT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get top users rating",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Must be code 200 and response array\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(200);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).is.an('array');\r",
+									"    pm.expect(jsonData.length).to.eql(2);\r",
+									"    pm.expect(jsonData[0]).to.have.property('email');\r",
+									"    pm.expect(jsonData[0].email).to.eql('petya@grand1964.com.ru');\r",
+									"    pm.expect(jsonData[0]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[0].rating).to.eql(3);\r",
+									"    pm.expect(jsonData[1]).to.have.property('email');\r",
+									"    pm.expect(jsonData[1].email).to.eql('vasya@grand1964.com.ru');\r",
+									"    pm.expect(jsonData[1]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[1].rating).to.eql(-1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/ratings?sortMode=SORT_DESC",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "sortMode",
+									"value": "SORT_DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get bottom users rating",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Must be code 200 and response array\", function () {\r",
+									"\tpm.expect(pm.response.code).to.eql(200);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).is.an('array');\r",
+									"    pm.expect(jsonData.length).to.eql(2);\r",
+									"    pm.expect(jsonData[0]).to.have.property('email');\r",
+									"    pm.expect(jsonData[0].email).to.eql('vasya@grand1964.com.ru');    \r",
+									"    pm.expect(jsonData[0]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[0].rating).to.eql(-1);\r",
+									"    pm.expect(jsonData[1]).to.have.property('email');\r",
+									"    pm.expect(jsonData[1].email).to.eql('petya@grand1964.com.ru');\r",
+									"    pm.expect(jsonData[1]).to.have.property('rating');\r",
+									"    pm.expect(jsonData[1].rating).to.eql(3);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/ratings?sortMode=SORT_ASC",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "sortMode",
+									"value": "SORT_ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"API = class {",
+					"    constructor(postman, verbose = false, baseUrl = \"http://localhost:8080\") {",
+					"        this.baseUrl = baseUrl;",
+					"        this.pm = postman;",
+					"        this._verbose = verbose;",
+					"    }",
+					"",
+					"    async addUser(user, verbose=null) {",
+					"        return this.post(\"/admin/users\", user, \"Ошибка при добавлении нового пользователя: \", verbose);",
+					"    }",
+					"",
+					"    async addCategory(category, verbose=null) {",
+					"        return this.post(\"/admin/categories\", category, \"Ошибка при добавлении новой категории: \", verbose);",
+					"    }",
+					"",
+					"    async addEvent(userId, event, verbose=null) {",
+					"        return this.post(\"/users/\" + userId + \"/events\", event, \"Ошибка при добавлении нового события: \", verbose);",
+					"    }",
+					"",
+					"    async publishParticipationRequest(eventId, userId, verbose=null) {",
+					"        return this.post('/users/' + userId + '/requests?eventId=' + eventId, null, \"Ошибка при добавлении нового запроса на участие в событии\", verbose);",
+					"    }",
+					"",
+					"    async publishEvent(eventId, verbose=null) {",
+					"        return this.patch('/admin/events/' + eventId, {stateAction: \"PUBLISH_EVENT\"}, \"Ошибка при публикации события\", verbose);",
+					"    }",
+					"    ",
+					"    async acceptParticipationRequest(eventId, userId, reqId, verbose=null) {",
+					"        return this.patch('/users/' + userId + '/events/' + eventId + '/requests/', {requestIds:[reqId], status: \"CONFIRMED\"}, \"Ошибка при принятии заявки на участие в событии\", verbose);",
+					"    }",
+					"",
+					"    async addLike(userId, eventId, likeParam, verbose=null) {",
+					"        return this.post('/users/' + userId + '/event/' + eventId + '/likes?likeType=' + likeParam, null, \"Ошибка при принятии заявки на участие в событии\", verbose);",
+					"    }",
+					"",
+					"    async post(path, body, errorText = \"Ошибка при выполнении post-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"POST\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async patch(path, body = null, errorText = \"Ошибка при выполнении patch-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"PATCH\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async get(path, body = null, errorText = \"Ошибка при выполнении get-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"GET\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async sendRequest(method, path, body=null, errorText = \"Ошибка при выполнении запроса: \", verbose=null) {",
+					"        return new Promise((resolve, reject) => {",
+					"            verbose = verbose == null ? this._verbose : verbose;",
+					"",
+					"            const request = {",
+					"                url: this.baseUrl + path,",
+					"                method: method,",
+					"                body: body == null ? \"\" : JSON.stringify(body),",
+					"                header: { \"Content-Type\": \"application/json\" },",
+					"            };",
+					"",
+					"            if(verbose) {",
+					"                console.log(\"Отправляю запрос: \", request);",
+					"            }",
+					"",
+					"            try {",
+					"                this.pm.sendRequest(request, (error, response) => {",
+					"                    if(error || (response.code >= 400 && response.code <= 599)) {",
+					"                        let err = error ? error : JSON.stringify(response.json());",
+					"                        console.error(\"При выполнении запроса к серверу возникла ошика.\\n\", err,",
+					"                             \"\\nДля отладки проблемы повторите такой же запрос к вашей программе \" + ",
+					"                             \"на локальном компьютере. Данные запроса:\\n\", JSON.stringify(request));",
+					"",
+					"                        reject(new Error(errorText + err));",
+					"                    }",
+					"",
+					"                    if(verbose) {",
+					"                        console.log(\"Результат обработки запроса: код состояния - \", response.code, \", тело: \", response.json());",
+					"                    }",
+					"",
+					"                    resolve(response.json());",
+					"                });",
+					"            } catch(err) {",
+					"                if(verbose) {",
+					"                    console.error(errorText, err);",
+					"                }",
+					"                return Promise.reject(err);",
+					"            }",
+					"        });",
+					"    }",
+					"};",
+					"",
+					"InitUtils = class {",
+					"    constructor() {}",
+					"",
+					"    getUser(userName, userEmail) {        ",
+					"        return {",
+					"            name: pm.variables.replaceIn(userName),",
+					"            email: pm.variables.replaceIn(userEmail)",
+					"        };",
+					"    }",
+					"",
+					"    getCategory() {",
+					"        return {",
+					"            name: pm.variables.replaceIn('Category grand1964')",
+					"        };",
+					"    }",
+					"",
+					"    getEvent(categoryId, limit, moderation, number) {",
+					"        return {",
+					"            annotation: pm.variables.replaceIn('Event created by initiator - annotation'),",
+					"            category: categoryId,",
+					"            description: pm.variables.replaceIn('Event created by initiator - description'),",
+					"            eventDate: pm.variables.replaceIn('2024-12-31 15:10:05'),",
+					"            location: {",
+					"                lat: parseFloat(pm.variables.replaceIn(55.754167)),",
+					"                lon: parseFloat(pm.variables.replaceIn(37.62)),",
+					"            },",
+					"            paid: pm.variables.replaceIn(true),",
+					"            participantLimit: pm.variables.replaceIn(limit),",
+					"            requestModeration: pm.variables.replaceIn(moderation),",
+					"            title: pm.variables.replaceIn('Event' + number.toString())",
+					"        }",
+					"    }    ",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "catId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "init1Id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "init2Id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "user1Id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "user2Id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "event1Id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "event2Id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "event3Id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "event4Id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "event5Id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
